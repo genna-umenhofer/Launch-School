@@ -7,6 +7,7 @@
 // End program or repeat the first step of asking user for number.
 
 const readline = require('readline-sync');
+const MESSAGES = require('./calculator_messages.json');
 
 function prompt(message) {
   console.log(`=> ${message}`);
@@ -16,7 +17,7 @@ function invalidNumber(number) {
   return number.trimStart() === '' || Number.isNaN(Number(number));
 }
 
-prompt("Welcome to calculator!");
+prompt(MESSAGES['welcome']);
 let output;
 doTheCalculation();
 
@@ -27,44 +28,44 @@ function doTheCalculation() {
 }
 
 function askAgain() {
-  prompt("Would you like to perform another calculation?\n 1) Yes 2) No");
+  prompt(MESSAGES["askAgain"]);
   let calculateAgain = readline.question();
   while (invalidNumber(calculateAgain)) {
-    prompt('Hmm.. that doesn\'t look like a valid answer.\nPlease enter 1 for yes or 2 for no.');
+    prompt(MESSAGES["invalidAnswer"]);
     calculateAgain = readline.question();
   }
   if (calculateAgain === '1') {
     doTheCalculation();
   } else {
-    console.log('Thanks for using the calculator!');
+    console.log(MESSAGES["goodbye"]);
   }
 }
 
 function getFirstNumber() {
-  prompt("What is the first number?");
+  prompt(MESSAGES["firstNumber"]);
   let number1 = readline.question();
   while (invalidNumber(number1)) {
-    prompt('Hmm.. that doesn\'t look like a valid number.\nPlease enter a valid number.');
+    prompt(MESSAGES["invalidAnswer"]);
     number1 = readline.question();
   }
   return number1;
 }
 
 function getSecondNumber() {
-  prompt("What is the second number?");
+  prompt(MESSAGES["secondNumber"]);
   let number2 = readline.question();
   while (invalidNumber(number2)) {
-    prompt('Hmm.. that doesn\'t look like a valid number.\nPlease enter a valid number.');
+    prompt(MESSAGES["invalidAnswer"]);
     number2 = readline.question();
   }
   return number2;
 }
 
 function getOperation() {
-  prompt("What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide");
+  prompt(MESSAGES["operationType"]);
   let operation = readline.question();
   while (!['1', '2', '3', '4'].includes(operation)) {
-    prompt('Please choose 1, 2, 3, or 4.\n1) Add 2) Subtract 3) Multiply 4) Divide');
+    prompt(MESSAGES["invalidAnswer"]);
     operation = readline.question();
   }
   return operation;
