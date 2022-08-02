@@ -11,63 +11,83 @@ function invalidNumber(number) {
 }
 
 function getLoanAmount() {
-  prompt("What is the original loan amount?\nEnter your answer in XX.XX format.")
+  prompt("What is the original loan amount? Enter your answer in XX.XX format.");
   let loanAmount = readline.question();
   while (invalidNumber(loanAmount)) {
     prompt('Please enter your answer with numbers and decimals only.');
-    let loanAmount = readline.question();
-  };
-  prompt(`You entered $${loanAmount}.`)
-  return loanAmount;
+    loanAmount = readline.question();
+  }
+  prompt(`You entered $${loanAmount}.`);
+  prompt('Is this correct? 1) Yes 2) No');
+  let isCorrectEntry = readline.question();
+  if (isCorrectEntry === '2') {
+    getLoanAmount();
+  }
+  return Number(loanAmount);
 }
 
 function getAnnualInterestRate() {
-  prompt("What is the annual interest rate (APR)?\nEnter your answer in XX.XX format.")
+  prompt("What is the annual interest rate (APR)? Enter your answer in XX.XX format.");
   let loanAPR = readline.question();
   while (invalidNumber(loanAPR)) {
     prompt('Please enter your answer with numbers and decimals only.');
-    let loanAPR = readline.question();
-  };
-  prompt(`You entered ${loanAPR}% per year.`)
-  return loanAPR;
+    loanAPR = readline.question();
+  }
+  prompt(`You entered ${loanAPR}% per year.`);
+  prompt('Is this correct? 1) Yes 2) No');
+  let isCorrectEntry = readline.question();
+  if (isCorrectEntry === '2') {
+    getAnnualInterestRate();
+  }
+  return Number(loanAPR);
 }
 
 function getLoanDurationYears() {
-  prompt("How many years will the loan last?\nEnter your answer in XX format.")
+  prompt("How many years will the loan last? Enter your answer in XX format.");
   let loanDurationYears = readline.question();
   while (invalidNumber(loanDurationYears)) {
     prompt('Please enter your answer with numbers only.');
-    let loanDurationYears = readline.question();
-  };
-  prompt(`You entered ${loanDurationYears} years.`)
-  return loanDurationYears;
+    loanDurationYears = readline.question();
+  }
+  prompt(`You entered ${loanDurationYears} years.`);
+  prompt('Is this correct? 1) Yes 2) No');
+  let isCorrectEntry = readline.question();
+  if (isCorrectEntry === '2') {
+    getLoanDurationYears();
+  }
+  return Number(loanDurationYears);
 }
 
 function getLoanDurationMonths() {
-  prompt("How many months will the loan last?\nEnter your answer in XX format.")
+  prompt("How many months will the loan last? Enter your answer in XX format.");
   let loanDurationMonths = readline.question();
   while (invalidNumber(loanDurationMonths)) {
     prompt('Please enter your answer with numbers only.');
-    let loanDurationMonths = readline.question();
-  };
-  prompt(`You entered ${loanDurationMonths} months.`)
-  return loanDurationMonths;
+    loanDurationMonths = readline.question();
+  }
+  prompt(`You entered ${loanDurationMonths} months.`);
+  prompt('Is this correct? 1) Yes 2) No');
+  let isCorrectEntry = readline.question();
+  if (isCorrectEntry === '2') {
+    getLoanDurationMonths();
+  }
+  return Number(loanDurationMonths);
 }
 
+//The actual running part of the code
 prompt('Welcome to the loan calculator!');
-let moPay;
+let monthlyPayment;
 calculator();
-console.log(`Your monthly payment will be $${moPay}.`);
-
+console.log(`Your monthly payment will be $${monthlyPayment}.`);
 
 function calculator() {
-  let loAmt = Number(getLoanAmount());
-  let monLoInt = (Number(getAnnualInterestRate()) / 12);
-  let loDurMo = (Number(getLoanDurationYears()) * 12) + Number(getLoanDurationMonths());
-  console.log("Loan Amount: " + loAmt);
-  console.log("Monthly Interest: " + monLoInt);
-  console.log("Loan Duration: " + loDurMo);
-  moPay = loAmt * (monLoInt / (1 - Math.pow((1 + monLoInt), (-loDurMo))));
+  let loanAmount = getLoanAmount();
+  let monthlyInterestRate = getAnnualInterestRate() / 1012;
+  let loanDuration = (getLoanDurationYears() * 12) + getLoanDurationMonths();
+  console.log("Loan Amount: " + loanAmount);
+  console.log("Monthly Interest: " + monthlyInterestRate);
+  console.log("Loan Duration: " + loanDuration);
+  monthlyPayment = loanAmount * (monthlyInterestRate / (1 - Math.pow((1 + monthlyInterestRate), (-loanDuration))));
 }
 
 
@@ -88,7 +108,7 @@ function calculator() {
     //loan amount number
     //APR from percentage points to decimal
     //duration from months and years to number in months only
-  
+
 //Calculate the monthly payment
     // let m = p * (j / (1 - Math.pow((1 + j), (-n))));
 
