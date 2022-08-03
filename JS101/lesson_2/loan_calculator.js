@@ -1,5 +1,3 @@
-//Given information about a loan, determine the monthly payment.
-
 const readline = require('readline-sync');
 
 function prompt(message) {
@@ -74,44 +72,51 @@ function getLoanDurationMonths() {
   return Number(loanDurationMonths);
 }
 
-//The actual running part of the code
+function askAgain() {
+  prompt('Would you like to do another calculation? 1) Yes 2) No');
+  let calculateAgain = readline.question();
+  while (invalidNumber(calculateAgain)) {
+    prompt('Please enter your answer with numbers only.');
+    calculateAgain = readline.question();
+  }
+  if (calculateAgain === '1') {
+    doTheCalculation();
+  } else {
+    console.log("Thank you for using the calculator. Goodbye!");
+  }
+}
+
 prompt('Welcome to the loan calculator!');
 let monthlyPayment;
-calculator();
-console.log(`Your monthly payment will be $${monthlyPayment}.`);
+doTheCalculation();
+
+function doTheCalculation() {
+  calculator();
+  console.log(`Your monthly payment will be $${monthlyPayment.toFixed(2)}.`);
+  askAgain();
+}
+
+function annualToMonthlyRate(apr) {
+  if (apr === 0) {
+    return 0;
+  } else {
+    let percentAsDecimal = apr / 100;
+    let perMonth = percentAsDecimal / 12;
+    return Number(perMonth);
+  }
+}
 
 function calculator() {
   let loanAmount = getLoanAmount();
-  let monthlyInterestRate = getAnnualInterestRate() / 1012;
+  let monthlyInterestRate = (annualToMonthlyRate(getAnnualInterestRate()));
   let loanDuration = (getLoanDurationYears() * 12) + getLoanDurationMonths();
-  console.log("Loan Amount: " + loanAmount);
-  console.log("Monthly Interest: " + monthlyInterestRate);
-  console.log("Loan Duration: " + loanDuration);
-  monthlyPayment = loanAmount * (monthlyInterestRate / (1 - Math.pow((1 + monthlyInterestRate), (-loanDuration))));
+  if (monthlyInterestRate === 0) {
+    monthlyPayment = (loanAmount / loanDuration);
+    return Number(monthlyPayment);
+  } else {
+    monthlyPayment = loanAmount *
+                  (monthlyInterestRate /
+                  (1 - Math.pow((1 + monthlyInterestRate), (-loanDuration))));
+    return Number(monthlyPayment);
+  }
 }
-
-
-//PSEUDOCODE
-//Get data about the loan
-    //Get loan amount from user in $XX.XX
-        //Check for eroneous entries
-        //Give option to continue or to re-enter
-    //Get APR from user in XX.XX%
-
-        //Check for eroneous entries
-        //Give option to continue or to re-enter
-    //Get loan duration from user in X years and X months
-      //Check for eroneous entries
-      //Give option to continue or to re-enter
-
-//Convert the data into a useable value based on the formula needs
-    //loan amount number
-    //APR from percentage points to decimal
-    //duration from months and years to number in months only
-
-//Calculate the monthly payment
-    // let m = p * (j / (1 - Math.pow((1 + j), (-n))));
-
-//Tell the user the monthly payment in the form $XX.XX
-
-//Ask user if they want to calculate another loan or not
