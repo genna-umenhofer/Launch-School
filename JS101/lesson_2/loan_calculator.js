@@ -1,4 +1,5 @@
 const readline = require('readline-sync');
+const NUMBER_OF_MONTHS_IN_A_YEAR = 12;
 
 function prompt(message) {
   console.log(`=> ${message}`);
@@ -90,7 +91,7 @@ function annualToMonthlyRate(apr) {
     return 0;
   } else {
     let percentAsDecimal = apr / 100;
-    let perMonth = percentAsDecimal / 12;
+    let perMonth = percentAsDecimal / NUMBER_OF_MONTHS_IN_A_YEAR;
     return Number(perMonth);
   }
 }
@@ -99,7 +100,8 @@ function calculator() {
   let monthlyPayment;
   let loanAmount = getLoanAmount();
   let monthlyInterestRate = (annualToMonthlyRate(getAnnualInterestRate()));
-  let loanDuration = (getLoanDurationYears() * 12) + getLoanDurationMonths();
+  let loanDuration = (getLoanDurationYears() * NUMBER_OF_MONTHS_IN_A_YEAR)
+                              + getLoanDurationMonths();
   if (monthlyInterestRate === 0) {
     monthlyPayment = (loanAmount / loanDuration);
   } else {
