@@ -10,17 +10,26 @@ function invalidNumber(number) {
             || (Number(number) < 0);
 }
 
-function invalidAnswer(answer, answerName, unit) {
+function invalidAnswer(answer) {
+  //console.log(3);
+  return (!((answer === '1')) && ((answer === '2'))) || Number.isNaN(Number(answer));
+} // The problem is the short circuit evaluation of the answer === 1 and === 2.
+// Setting this aside until I learn more and get more experience.
+
+function invalidAnswerCheck(answer, answerName, unit) {
   prompt(`You entered ${answer} ${unit}.`);
   prompt('Is this correct? 1) Yes 2) No');
   let isCorrectEntry = readline.question();
+  while (invalidAnswer(isCorrectEntry)) {
+    //console.log(2);
+    //console.log(invalidAnswer(isCorrectEntry));
+    prompt('Please enter a valid answer.');
+    isCorrectEntry = readline.question();
+  }
   if (isCorrectEntry === '2') {
     answerName();
   } else if (isCorrectEntry === '1') {
     prompt('Great! You may continue.');
-  } else { //refactor this section to be a while loop
-    prompt('Please enter a valid answer.');
-    isCorrectEntry = readline.question();
   }
 }
 
@@ -28,10 +37,12 @@ function getLoanAmount() {
   prompt("What is the original loan amount? Enter your answer in XX.XX format.");
   let loanAmount = readline.question();
   while (invalidNumber(loanAmount)) {
+    //console.log(1);
     prompt('Please enter a valid answer.');
     loanAmount = readline.question();
   }
-  invalidAnswer(loanAmount, getLoanAmount, 'dollars');
+  invalidAnswerCheck(loanAmount, getLoanAmount, 'dollars');
+  //console.log(4);
   return Number(loanAmount);
 }
 
@@ -42,7 +53,7 @@ function getAnnualInterestRate() {
     prompt('Please enter a valid answer.');
     loanAPR = readline.question();
   }
-  invalidAnswer(loanAPR, getAnnualInterestRate, '%');
+  invalidAnswerCheck(loanAPR, getAnnualInterestRate, '%');
   return Number(loanAPR);
 }
 
@@ -53,7 +64,7 @@ function getLoanDurationYears() {
     prompt('Please enter a valid answer.');
     loanDurationYears = readline.question();
   }
-  invalidAnswer(loanDurationYears, getLoanDurationYears, 'years');
+  invalidAnswerCheck(loanDurationYears, getLoanDurationYears, 'years');
   return Number(loanDurationYears);
 }
 
@@ -64,7 +75,7 @@ function getLoanDurationMonths() {
     prompt('Please enter a valid answer.');
     loanDurationMonths = readline.question();
   }
-  invalidAnswer(loanDurationMonths, getLoanDurationMonths, 'months');
+  invalidAnswerCheck(loanDurationMonths, getLoanDurationMonths, 'months');
   return Number(loanDurationMonths);
 }
 
