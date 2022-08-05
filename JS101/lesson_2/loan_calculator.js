@@ -8,6 +8,22 @@ function invalidNumber(number) {
   return number.trimStart() === '' || Number.isNaN(Number(number));
 }
 
+function invalidAnswer(answer, answerName, unit) {
+  prompt(`You entered ${answer} ${unit}.`);
+  prompt('Is this correct? 1) Yes 2) No');
+  let isCorrectEntry = readline.question();
+  if (isCorrectEntry === '2') {
+    answerName();
+  } else if (isCorrectEntry === '1') {
+    prompt('Great! You may continue.');
+  } else {
+    prompt('Please enter a valid answer.');
+    prompt(`You entered $${answer}.`);
+    prompt('Is this correct? 1) Yes 2) No');
+    isCorrectEntry = readline.question();
+  }
+}
+
 function getLoanAmount() {
   prompt("What is the original loan amount? Enter your answer in XX.XX format.");
   let loanAmount = readline.question();
@@ -15,12 +31,7 @@ function getLoanAmount() {
     prompt('Please enter your answer with numbers and decimals only.');
     loanAmount = readline.question();
   }
-  prompt(`You entered $${loanAmount}.`);
-  prompt('Is this correct? 1) Yes 2) No');
-  let isCorrectEntry = readline.question();
-  if (isCorrectEntry === '2') {
-    getLoanAmount();
-  }
+  invalidAnswer(loanAmount, getLoanAmount, 'dollars');
   return Number(loanAmount);
 }
 
@@ -31,12 +42,7 @@ function getAnnualInterestRate() {
     prompt('Please enter your answer with numbers and decimals only.');
     loanAPR = readline.question();
   }
-  prompt(`You entered ${loanAPR}% per year.`);
-  prompt('Is this correct? 1) Yes 2) No');
-  let isCorrectEntry = readline.question();
-  if (isCorrectEntry === '2') {
-    getAnnualInterestRate();
-  }
+  invalidAnswer(loanAPR, getAnnualInterestRate, '%');
   return Number(loanAPR);
 }
 
@@ -47,12 +53,7 @@ function getLoanDurationYears() {
     prompt('Please enter your answer with numbers only.');
     loanDurationYears = readline.question();
   }
-  prompt(`You entered ${loanDurationYears} years.`);
-  prompt('Is this correct? 1) Yes 2) No');
-  let isCorrectEntry = readline.question();
-  if (isCorrectEntry === '2') {
-    getLoanDurationYears();
-  }
+  invalidAnswer(loanDurationYears, getLoanDurationYears, 'years');
   return Number(loanDurationYears);
 }
 
@@ -63,12 +64,7 @@ function getLoanDurationMonths() {
     prompt('Please enter your answer with numbers only.');
     loanDurationMonths = readline.question();
   }
-  prompt(`You entered ${loanDurationMonths} months.`);
-  prompt('Is this correct? 1) Yes 2) No');
-  let isCorrectEntry = readline.question();
-  if (isCorrectEntry === '2') {
-    getLoanDurationMonths();
-  }
+  invalidAnswer(loanDurationMonths, getLoanDurationMonths, 'months');
   return Number(loanDurationMonths);
 }
 
@@ -80,21 +76,14 @@ function askAgain() {
     calculateAgain = readline.question();
   }
   if (calculateAgain === '1') {
-    doTheCalculation();
+    calculator();
   } else {
     console.log("Thank you for using the calculator. Goodbye!");
   }
 }
 
 prompt('Welcome to the loan calculator!');
-let monthlyPayment;
-doTheCalculation();
-
-function doTheCalculation() {
-  calculator();
-  console.log(`Your monthly payment will be $${monthlyPayment.toFixed(2)}.`);
-  askAgain();
-}
+calculator();
 
 function annualToMonthlyRate(apr) {
   if (apr === 0) {
@@ -107,16 +96,17 @@ function annualToMonthlyRate(apr) {
 }
 
 function calculator() {
+  let monthlyPayment;
   let loanAmount = getLoanAmount();
   let monthlyInterestRate = (annualToMonthlyRate(getAnnualInterestRate()));
   let loanDuration = (getLoanDurationYears() * 12) + getLoanDurationMonths();
   if (monthlyInterestRate === 0) {
     monthlyPayment = (loanAmount / loanDuration);
-    return Number(monthlyPayment);
   } else {
     monthlyPayment = loanAmount *
                   (monthlyInterestRate /
                   (1 - Math.pow((1 + monthlyInterestRate), (-loanDuration))));
-    return Number(monthlyPayment);
   }
+  console.log(`Your monthly payment will be $${monthlyPayment.toFixed(2)}.`);
+  askAgain();
 }
