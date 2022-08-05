@@ -6,7 +6,8 @@ function prompt(message) {
 }
 
 function invalidNumber(number) {
-  return number.trimStart() === '' || Number.isNaN(Number(number));
+  return number.trimStart() === '' || Number.isNaN(Number(number))
+            || (Number(number) < 0);
 }
 
 function invalidAnswer(answer, answerName, unit) {
@@ -17,10 +18,8 @@ function invalidAnswer(answer, answerName, unit) {
     answerName();
   } else if (isCorrectEntry === '1') {
     prompt('Great! You may continue.');
-  } else {
+  } else { //refactor this section to be a while loop
     prompt('Please enter a valid answer.');
-    prompt(`You entered $${answer}.`);
-    prompt('Is this correct? 1) Yes 2) No');
     isCorrectEntry = readline.question();
   }
 }
@@ -29,7 +28,7 @@ function getLoanAmount() {
   prompt("What is the original loan amount? Enter your answer in XX.XX format.");
   let loanAmount = readline.question();
   while (invalidNumber(loanAmount)) {
-    prompt('Please enter your answer with numbers and decimals only.');
+    prompt('Please enter a valid answer.');
     loanAmount = readline.question();
   }
   invalidAnswer(loanAmount, getLoanAmount, 'dollars');
@@ -40,7 +39,7 @@ function getAnnualInterestRate() {
   prompt("What is the annual interest rate (APR)? Enter your answer in XX.XX format.");
   let loanAPR = readline.question();
   while (invalidNumber(loanAPR)) {
-    prompt('Please enter your answer with numbers and decimals only.');
+    prompt('Please enter a valid answer.');
     loanAPR = readline.question();
   }
   invalidAnswer(loanAPR, getAnnualInterestRate, '%');
@@ -51,7 +50,7 @@ function getLoanDurationYears() {
   prompt("How many years will the loan last? Enter your answer in XX format.");
   let loanDurationYears = readline.question();
   while (invalidNumber(loanDurationYears)) {
-    prompt('Please enter your answer with numbers only.');
+    prompt('Please enter a valid answer.');
     loanDurationYears = readline.question();
   }
   invalidAnswer(loanDurationYears, getLoanDurationYears, 'years');
@@ -62,7 +61,7 @@ function getLoanDurationMonths() {
   prompt("How many months will the loan last? Enter your answer in XX format.");
   let loanDurationMonths = readline.question();
   while (invalidNumber(loanDurationMonths)) {
-    prompt('Please enter your answer with numbers only.');
+    prompt('Please enter a valid answer.');
     loanDurationMonths = readline.question();
   }
   invalidAnswer(loanDurationMonths, getLoanDurationMonths, 'months');
@@ -73,7 +72,7 @@ function askAgain() {
   prompt('Would you like to do another calculation? 1) Yes 2) No');
   let calculateAgain = readline.question();
   while (invalidNumber(calculateAgain)) {
-    prompt('Please enter your answer with numbers only.');
+    prompt('Please enter a valid answer.');
     calculateAgain = readline.question();
   }
   if (calculateAgain === '1') {
