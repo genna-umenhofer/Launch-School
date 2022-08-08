@@ -1,8 +1,21 @@
 // Question 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let headline = "The Flintstones Rock!";
+let numberOfSpaces = 0;
 
+for (let counter = 0; counter <= 10; counter += 1) {
+  console.log(headline.padStart(numberOfSpaces + headline.length));
+  numberOfSpaces += 1;
+}
 
 // Question 2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+let munstersDescription = "The Munsters are creepy and spooky.";
+console.log(munstersDescription.split('').map(function(element) {
+  if (element === element.toUpperCase()) {
+    return element.toLowerCase();
+  } else {
+    return element.toUpperCase();
+  }
+}).join(''));
 
 // Question 3 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function factors(number) {
