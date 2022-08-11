@@ -85,13 +85,60 @@ I should have read the if statement more closely. [undefined,
 */
 
 // Question 8 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let flintstones = ["Fred", "Barney", "Wilma", "Betty", "Pebbles", "Bambam"];
 
+let newObj = {};
+
+flintstones.forEach((name, index) => {
+  newObj[name] = index;
+});
+
+console.log(newObj);
 
 // Question 9 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let ages = {
+  Herman: 32,
+  Lily: 30,
+  Grandpa: 5843,
+  Eddie: 10,
+  Marilyn: 22,
+  Spot: 237
+};
 
+Object.values(ages).reduce((previous, current) => previous + current, 0);
+
+//Alternative:
+let totalAges = 0;
+Object.values(ages).forEach(age => totalAges += age);
 
 // Question 10 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let ages2 = {
+  Herman: 32,
+  Lily: 30,
+  Grandpa: 5843,
+  Eddie: 10,
+  Marilyn: 22,
+  Spot: 237
+};
 
+console.log(Object.values(ages2).sort()[0]);
+
+//Alternative:
+let agesArr = Object.values(ages2);
+Math.min(...agesArr);
 
 // Question 11 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let statement = "The Flintstones Rock";
 
+let letterCount = {};
+let splitStatement = statement.split('').filter(char => char !== ' ');
+
+splitStatement.forEach(letter => {
+  if (!(Object.keys(letterCount).includes(letter))) {
+    letterCount[letter] = 1;
+  } else {
+    letterCount[letter] += 1;
+  }
+});
+
+console.log(letterCount);
