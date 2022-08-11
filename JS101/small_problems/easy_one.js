@@ -52,7 +52,7 @@ console.log(`The area of the room is ${calculateSquareMeter(lengthOfRoom, widthO
 
 //Tip Calculator ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-const readline = require('readline-sync');
+//const readline = require('readline-sync');
 const PERCENT_TO_DECIMAL = 100;
 
 console.log('What is the bill?');
@@ -70,11 +70,11 @@ let totalTip = determineTipAmount(initialBill, tipPercentage);
 let totalBill =  totalTip + initialBill;
 
 console.log(`The tip is $${totalTip}.`);
-console.log(`The total bill is $${totalBill}.`)
+console.log(`The total bill is $${totalBill}.`);
 
 //Sum or Prod Consec Int ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-const readline = require('readline-sync');
+//const readline = require('readline-sync');
 
 console.log('Please enter an integer greater than 0: ');
 let userInteger = Number(readline.question());
@@ -87,16 +87,16 @@ function findTheSum(integer) {
   //i starts at 2 to account for totalSum starting at 1
   //otherwise totalSum will be 1 more than the actual answer
   //starting totalSum at 0 resulted in totalSum always being 0
-  for (let i = 2; i <= integer; i += 1) {
-    totalSum += i;
+  for (let idx = 2; idx <= integer; idx += 1) {
+    totalSum += idx;
   }
   return totalSum;
 }
 
 function findTheProduct(integer) {
   let totalProduct = 1;
-  for (let i = 1; i <= integer; i += 1){
-    totalProduct *= i;
+  for (let idx = 1; idx <= integer; idx += 1) {
+    totalProduct *= idx;
   }
   return totalProduct;
 }
@@ -106,7 +106,7 @@ if (operation === "s") {
   console.log(`The sum of the integers between 1 and ${userInteger} is ${totalSum}.`);
 } else if (operation === "p") {
   let totalProduct = findTheProduct(userInteger);
-  console.log(`The product of the integers between 1 and ${userInteger} is ${totalProduct}.`)
+  console.log(`The product of the integers between 1 and ${userInteger} is ${totalProduct}.`);
 } else {
   console.log('Please try again.');
 }
@@ -121,7 +121,7 @@ function shortLongShort(stringOne, stringTwo) {
   } else {
     newString = newString.concat(stringOne, stringTwo, stringOne);
   }
-  
+
   console.log(newString);
 }
 
@@ -130,9 +130,56 @@ shortLongShort("abcde", "fgh");
 shortLongShort("", "xyz");
 
 //Leap Year Part 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function isLeapYear(year) {
+  return ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0));
+}
+
+isLeapYear(2016);
 
 //Leap Year Part 2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function gregorianLeapYear(year) {
+  return ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0));
+}
+
+function julianLeapYear(year) {
+  return ((year % 4 === 0));
+}
+
+function isLeapYear2(year) {
+  if (year >= 1752) {
+    return gregorianLeapYear(year);
+  } else if (year < 1752) {
+    return julianLeapYear(year);
+  }
+}
+
+isLeapYear2(2015);
 
 //Multiples of 3 and 5 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function multisum(number) {
+  let num = number;
+  let count = 0;
+  while (num > 0) {
+    if ((num % 3 === 0) || (num % 5 === 0)) {
+      count += num;
+      num -= 1;
+    } else {
+      num -= 1;
+    }
+  }
+  return count;
+}
+
+multisum(5);
 
 //UTF-16 String Value ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function utf10Value(str) {
+  let totalCount = 0;
+  for (let idx = 0; idx < str.length; idx += 1) {
+    let currentCharVal = Number(str.charCodeAt(idx));
+    totalCount += currentCharVal;
+  }
+  return totalCount;
+}
+
+utf10Value('Launch School');
