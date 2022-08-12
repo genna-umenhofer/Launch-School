@@ -129,13 +129,93 @@ console.log(oddities([2, 3, 4, 5, 6]));
 console.log(eventies([2, 3, 4, 5, 6]));
 
 // convert a string to a number ~~~~~~~~~~~~~~~~~~~~~
+function stringToInteger(str) {
+  return str - 0;
+}
 
+console.log(stringToInteger("-4", 0));
+console.log(typeof stringToInteger("-4", 0));
+
+//LS Answer:
+function stringToInteger2(string) {
+  const DIGITS = {
+    0: 0,
+    1: 1,
+    2: 2,
+    3: 3,
+    4: 4,
+    5: 5,
+    6: 6,
+    7: 7,
+    8: 8,
+    9: 9
+  };
+  let arrayOfDigits = string.split("").map(char => DIGITS[char]);
+  let value = 0;
+  arrayOfDigits.forEach(digit => (value = (10 * value) + digit));
+  return value;
+}
 
 // convert a string to a signed number ~~~~~~~~~~~~~~~~
+function stringToInteger3(str) {
+  return str - 0;
+}
 
+console.log(stringToInteger3("-4", 0));
+console.log(typeof stringToInteger3("-4", 0));
+
+//LS Answer
+function stringToSignedInteger(string) {
+  switch (string[0]) {
+    case "-":
+      return -stringToInteger(string.slice(1, string.length));
+    case "+":
+      return stringToInteger(string.slice(1, string.length));
+    default:
+      return stringToInteger(string);
+  }
+}
 
 // convert a number to a string ~~~~~~~~~~~~~~~~~~~~~
+function numberToString(number) {
+  return number + '';
+}
 
+console.log(numberToString(-4));
+console.log(typeof numberToString(-4));
+
+//LS Answer
+const DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+function integerToString(number) {
+  let result = '';
+
+  do {
+    let remainder = number % 10;
+    number = Math.floor(number / 10);
+
+    result = DIGITS[remainder] + result;
+  } while (number > 0);
+
+  return result;
+}
 
 // convert a signed number to a string ~~~~~~~~~~~~~~~~
+function numberToInteger2(number) {
+  return number + '';
+}
 
+console.log(numberToInteger2(-4));
+console.log(typeof numberToInteger2(-4));
+
+//LS Answer
+function signedIntegerToString(number) {
+  switch (Math.sign(number)) {
+    case -1:
+      return `-${integerToString(-number)}`;
+    case +1:
+      return `+${integerToString(number)}`;
+    default:
+      return integerToString(number);
+  }
+}
