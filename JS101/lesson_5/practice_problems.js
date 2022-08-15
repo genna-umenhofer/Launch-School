@@ -152,22 +152,97 @@ arr.map(arr6 => {
 });
 
 // Eleven ~~~~~~~~~~~~~~~~~~~~
+let arr7 = [{ a: 1 }, { b: 2, c: 3 }, { d: 4, e: 5, f: 6 }];
 
+console.log(arr7.map(obj => {
+  let incrementedObj = {};
+  for (let key in obj) {
+    incrementedObj[key] = obj[key] + 1;
+  }
+  return incrementedObj;
+}));
 
 // Twelve ~~~~~~~~~~~~~~~~~~~~
+let arr8 = [[2], [3, 5, 7], [9], [11, 15, 18]];
 
+console.log(arr8.map(array => array.filter(num => num % 3 === 0)));
 
 // Thirteen ~~~~~~~~~~~~~~~~~~~~
+let arr9 = [[1, 6, 7], [1, 5, 3], [1, 8, 3]];
 
+//Sort based on the sum of odd numbers
+
+//iterate over the outer array
+  //iterate over the inner array
+  //sum up the odds
+  //sort based on odds sum value
+if oddsSum > currentHighestSum
 
 // Fourteen ~~~~~~~~~~~~~~~~~~~~
+let obj = {
+  grape: { type: 'fruit', colors: ['red', 'green'], size: 'small' },
+  carrot: { type: 'vegetable', colors: ['orange'], size: 'medium' },
+  apple: { type: 'fruit', colors: ['red', 'green'], size: 'medium' },
+  apricot: { type: 'fruit', colors: ['orange'], size: 'medium' },
+  marrow: { type: 'vegetable', colors: ['green'], size: 'large' },
+};
 
+function capitalizeColor(array) {
+  return array.map((color) => color.slice(0, 1).toUpperCase() + color.slice(1));
+}
+
+function upperCaseSize(string) {
+  return string.toUpperCase();
+}
+
+let newFoodList = [];
+
+Object.values(obj).forEach(food => {
+  if (food['type'] === 'fruit') {
+    newFoodList.push(capitalizeColor(food['colors']));
+  } else if (food['type'] === 'vegetable') {
+    newFoodList.push(upperCaseSize(food['size']));
+  }
+})
+
+console.log(newFoodList);
 
 // Fifteen ~~~~~~~~~~~~~~~~~~~~
-
+arr.filter(obj => {
+  return Object.values(obj).every(array => {
+    return array.every(num => num % 2 === 0);
+  });
+})
 
 // Sixteen ~~~~~~~~~~~~~~~~~~~~
+let arr = [['a', 1], ['b', 'two'], ['sea', {'c': 3}], ['D', ['a', 'b', 'c']]];
 
+let newObj = {};
+
+arr.forEach(subArray => {
+  let key = subArray[0];
+  let value = subArray[1];
+
+  newObj[key] = value;
+})
+
+console.log(newObj);
 
 // Seventeen ~~~~~~~~~~~~~~~~~~~~
+function makeUUID() {
+  let characters = ['a', 'b', 'c', 'd', 'e', 'f', 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  let sectionLengths = [8, 4, 4, 4, 12];
+  let newUUID = '';
+  sectionLengths.forEach((section, sectionIndex) => {
+    for(let counter = section; counter >= 1; counter--) {
+      let randomIndex = Math.floor(Math.random() * characters.length); 
+      newUUID += characters[randomIndex];
+    }
+    if (sectionIndex < sectionLengths.length - 1) {
+      newUUID += '-';
+    }
+  })
+  return newUUID;
+}
 
+console.log(makeUUID());
