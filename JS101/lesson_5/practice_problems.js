@@ -85,7 +85,7 @@ Object.entries(munsters2).forEach(person => {
   let age = person[1]['age'];
   let type = person[1]['gender'];
   console.log(`${name} is a ${age}-year-old ${type}.`);
-})
+});
 
 // Seven ~~~~~~~~~~~~~~~~~~~~
 // I think that arr = [4, [3, 8]] and a = 2 and b = [3, 8]. This is
@@ -93,9 +93,16 @@ Object.entries(munsters2).forEach(person => {
 
 // Eight ~~~~~~~~~~~~~~~~~~~~
 // I had trouble with this one
+let obj = {
+  first: ['the', 'quick'],
+  second: ['brown', 'fox'],
+  third: ['jumped'],
+  fourth: ['over', 'the', 'lazy', 'dog'],
+};
+
 let wordArray = Object.values(obj).flat().map(word => word.split('')).flat();
 
-wordArray.forEach(letter => {
+wordArray.forEach(letter => { //not working
   if (letter.includes('aeiouAEIOU')) {
     console.log(letter);
   }
@@ -104,13 +111,6 @@ wordArray.forEach(letter => {
 console.log(wordArray);
 
 //LS Answer:
-let obj = {
-  first: ['the', 'quick'],
-  second: ['brown', 'fox'],
-  third: ['jumped'],
-  fourth: ['over', 'the', 'lazy', 'dog'],
-};
-
 let vowels = 'aeiou';
 
 Object.values(obj).forEach(arr => {
