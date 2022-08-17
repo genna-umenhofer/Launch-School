@@ -3,7 +3,7 @@ const readline = require('readline-sync');
 const INITIAL_MARKER = ' ';
 const PLAYER_MARKER = 'X';
 const COMPUTER_MARKER = 'O';
-let GAMES_TO_WIN_MATCH = 5;
+const GAMES_TO_WIN_MATCH = 5;
 
 function prompt(string) {
   console.log(`==> ${string}`);
@@ -109,10 +109,13 @@ function displayScore(player, computer, ties) {
 function determineMatchWinner(computerScore, playerScore, roundCount) {
   if (computerScore === GAMES_TO_WIN_MATCH) {
     prompt('The computer won the match!');
+    return false;
   } else if (playerScore === GAMES_TO_WIN_MATCH) {
     prompt('The player won the match!');
+    return false;
   } else {
     prompt(`First to 5 points wins. This is round ${roundCount}.`);
+    return true;
   }
 }
 
@@ -120,19 +123,15 @@ let board = initializeBoard();
 displayBoard(board);
 
 while (true) {
-  //let board = initializeBoard();
   let playerScore = 0;
   let computerScore = 0;
   let ties = 0;
   let roundCount = 0;
 
-  while (true) {
+  while (determineMatchWinner(computerScore, playerScore, roundCount)) {
     let board = initializeBoard();
-    //let playerScore = 0;
-    //let computerScore = 0;
-    //let ties = 0;
-    //let roundCount = 0;
-    while (true) { //each takes a turn
+
+    while (true) {
       displayBoard(board);
 
       playerChoosesSquare(board);
@@ -142,9 +141,9 @@ while (true) {
       if (someoneWon(board) || boardFull(board)) break;
     }
 
-    displayBoard(board); //displays current board
+    displayBoard(board);
 
-    if (someoneWon(board)) { //checks for a winner
+    if (someoneWon(board)) {
       prompt(`${detectWinner(board)} won this round!`);
       if (detectWinner(board) === 'Player') {
         playerScore++;
@@ -155,15 +154,21 @@ while (true) {
       prompt("It's a tie!");
       ties++;
     }
+
     roundCount++;
     displayScore(playerScore, computerScore, ties);
-    determineMatchWinner(computerScore, playerScore, roundCount);
-    prompt(`Are you ready for the next round? (y or n)`);
-    let answer = readline.question().toLowerCase()[0];
-    if (answer !== 'y') break;
+
+    if (Number(playerScore) >= 5 || Number(computerScore) >= 5) {
+      determineMatchWinner(computerScore, playerScore, roundCount);
+      break;
+    } else {
+      prompt(`Are you ready for the next round? (y or n)`);
+      let answer = readline.question().toLowerCase()[0];
+      if (answer === 'n') break;
+    }
   }
 
-  prompt(`Play again? (y or n)`);
+  prompt(`Play another match? (y or n)`);
   let answer = readline.question().toLowerCase()[0];
   if (answer !== 'y') break;
   computerScore = 0;
