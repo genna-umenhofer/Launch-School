@@ -3,6 +3,7 @@ const readline = require('readline-sync');
 const INITIAL_MARKER = ' ';
 const PLAYER_MARKER = 'X';
 const COMPUTER_MARKER = 'O';
+let GAMES_TO_WIN_MATCH = 5;
 
 function prompt(string) {
   console.log(`==> ${string}`);
@@ -101,32 +102,73 @@ function detectWinner(board) {
   return null;
 }
 
+function displayScore(player, computer, ties) {
+  prompt(`The current score is: Player ${player} - Computer ${computer} - Ties ${ties}.`);
+}
+
+function determineMatchWinner(computerScore, playerScore, roundCount) {
+  if (computerScore === GAMES_TO_WIN_MATCH) {
+    prompt('The computer won the match!');
+  } else if (playerScore === GAMES_TO_WIN_MATCH) {
+    prompt('The player won the match!');
+  } else {
+    prompt(`First to 5 points wins. This is round ${roundCount}.`);
+  }
+}
+
 let board = initializeBoard();
 displayBoard(board);
 
 while (true) {
-  let board = initializeBoard();
+  //let board = initializeBoard();
+  let playerScore = 0;
+  let computerScore = 0;
+  let ties = 0;
+  let roundCount = 0;
+
   while (true) {
-    displayBoard(board);
+    let board = initializeBoard();
+    //let playerScore = 0;
+    //let computerScore = 0;
+    //let ties = 0;
+    //let roundCount = 0;
+    while (true) { //each takes a turn
+      displayBoard(board);
 
-    playerChoosesSquare(board);
-    if (someoneWon(board) || boardFull(board)) break;
+      playerChoosesSquare(board);
+      if (someoneWon(board) || boardFull(board)) break;
 
-    computerChoosesSquare(board);
-    if (someoneWon(board) || boardFull(board)) break;
-  }
+      computerChoosesSquare(board);
+      if (someoneWon(board) || boardFull(board)) break;
+    }
 
-  displayBoard(board);
+    displayBoard(board); //displays current board
 
-  if (someoneWon(board)) {
-    prompt(`${detectWinner(board)} won!`);
-  } else {
-    prompt("It's a tie!");
+    if (someoneWon(board)) { //checks for a winner
+      prompt(`${detectWinner(board)} won this round!`);
+      if (detectWinner(board) === 'Player') {
+        playerScore++;
+      } else if (detectWinner(board) === 'Computer') {
+        computerScore++;
+      }
+    } else {
+      prompt("It's a tie!");
+      ties++;
+    }
+    roundCount++;
+    displayScore(playerScore, computerScore, ties);
+    determineMatchWinner(computerScore, playerScore, roundCount);
+    prompt(`Are you ready for the next round? (y or n)`);
+    let answer = readline.question().toLowerCase()[0];
+    if (answer !== 'y') break;
   }
 
   prompt(`Play again? (y or n)`);
   let answer = readline.question().toLowerCase()[0];
   if (answer !== 'y') break;
+  computerScore = 0;
+  playerScore = 0;
+  ties = 0;
 }
 
 prompt(`Thanks for playing Tic-Tac-Toe!`);
