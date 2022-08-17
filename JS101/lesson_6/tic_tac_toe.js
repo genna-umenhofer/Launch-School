@@ -38,11 +38,18 @@ function initializeBoard() {
   return board;
 }
 
+function joinOr(arr) {
+  let lastElem = arr[arr.length - 1];
+  lastElem = ", or " + lastElem;
+  let partialArr = arr.slice(0, arr.length - 1);
+  return partialArr.join(', ') + lastElem;
+}
+
 function playerChoosesSquare(board) {
   let square;
 
   while (true) {
-    prompt(`Choose a square: ${emptySquares(board).join(', ')}`);
+    prompt(`Choose a square: ${joinOr(emptySquares(board))}`);
     square = readline.question().trim();
 
     if (emptySquares(board).includes(square)) break;
