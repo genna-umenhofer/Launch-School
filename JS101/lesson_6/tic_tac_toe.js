@@ -62,12 +62,57 @@ function playerChoosesSquare(board) {
 }
 
 function computerChoosesSquare(board) {
-  let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
+  if (determineDefensiveTurn(board)) {
+    let defensiveIndex = determineDefensiveMove(board);
 
-  let square = emptySquares(board)[randomIndex];
-  board[square] = COMPUTER_MARKER;
+    let square = emptySquares(board)[defensiveIndex];
+    board[square] = COMPUTER_MARKER;
+  } else {
+    let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
 
+    let square = emptySquares(board)[randomIndex];
+    board[square] = COMPUTER_MARKER;
+  }
 
+}
+
+function determineDefensiveTurn(board) {
+  let winningLines = [[1, 2, 3], [4, 5, 6], [7, 8, 9],
+    [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]];
+  let foundDefensiveTurn = false;
+  for (let line = 0; line < winningLines.length; line++) {
+    let [sq1, sq2, sq3] = winningLines[line];
+    if ((board[sq1] === PLAYER_MARKER &&
+      board[sq2] === PLAYER_MARKER &&
+      board[sq3] === INITIAL_MARKER) ||
+
+      (board[sq1] === PLAYER_MARKER &&
+      board[sq2] === INITIAL_MARKER &&
+      board[sq3] === PLAYER_MARKER) ||
+
+      (board[sq1] === INITIAL_MARKER &&
+      board[sq2] === PLAYER_MARKER &&
+      board[sq3] === PLAYER_MARKER)) {
+      foundDefensiveTurn = true;
+    }
+  }
+  return foundDefensiveTurn;
+}
+
+function determineDefensiveMove(board) {
+//initialize empty array possibleMoves
+//identify the spaces we could play to make a defensive move
+  //is it on the empty space list
+  //is it in the immediate threats list
+  //if on both, push to possible moves list
+//randomly select the defensive move from a list of possible moves
+  //output the defensive move
+}
+
+function immediateThreats(board) {
+//intilialize array of immediateThreats
+//idenitfy the immediate threats [[P, P, I] [P, I, P] [I, P, P]]
+//output an array of immediate threats
 }
 
 function emptySquares(board) {
@@ -85,7 +130,7 @@ function someoneWon(board) {
 }
 
 function detectWinner(board) {
-  let winningLines = [ [1, 2, 3], [4, 5, 6], [7, 8, 9],
+  let winningLines = [[1, 2, 3], [4, 5, 6], [7, 8, 9],
     [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]];
   for (let line = 0; line < winningLines.length; line++) {
     let [sq1, sq2, sq3] = winningLines[line];
