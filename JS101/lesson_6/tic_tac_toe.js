@@ -4,6 +4,8 @@ const INITIAL_MARKER = ' ';
 const PLAYER_MARKER = 'X';
 const COMPUTER_MARKER = 'O';
 const GAMES_TO_WIN_MATCH = 5;
+const WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9],
+  [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]];
 
 function prompt(string) {
   console.log(`==> ${string}`);
@@ -63,10 +65,8 @@ function playerChoosesSquare(board) {
 
 function computerChoosesSquare(board) {
   if (determineDefensiveTurn(board)) {
-    let defensiveIndex = determineDefensiveMove(board);
-
-    let square = emptySquares(board)[defensiveIndex];
-    board[square] = COMPUTER_MARKER;
+    let defensiveIndex = determineDefensiveMove(immediateThreats(board));
+    board[defensiveIndex] = COMPUTER_MARKER;
   } else {
     let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
 
@@ -77,11 +77,9 @@ function computerChoosesSquare(board) {
 }
 
 function determineDefensiveTurn(board) {
-  let winningLines = [[1, 2, 3], [4, 5, 6], [7, 8, 9],
-    [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]];
   let foundDefensiveTurn = false;
-  for (let line = 0; line < winningLines.length; line++) {
-    let [sq1, sq2, sq3] = winningLines[line];
+  for (let line = 0; line < WINNING_LINES.length; line++) {
+    let [sq1, sq2, sq3] = WINNING_LINES[line];
     if ((board[sq1] === PLAYER_MARKER &&
       board[sq2] === PLAYER_MARKER &&
       board[sq3] === INITIAL_MARKER) ||
@@ -99,20 +97,31 @@ function determineDefensiveTurn(board) {
   return foundDefensiveTurn;
 }
 
-function determineDefensiveMove(board) {
-//initialize empty array possibleMoves
-//identify the spaces we could play to make a defensive move
-  //is it on the empty space list
-  //is it in the immediate threats list
-  //if on both, push to possible moves list
-//randomly select the defensive move from a list of possible moves
-  //output the defensive move
+function determineDefensiveMove(arr) {
+  let possibleDefensiveMoves = arr;
+  let randomDefensiveMove = Math.floor(
+    Math.random() * possibleDefensiveMoves.length);
+  return randomDefensiveMove;
 }
 
 function immediateThreats(board) {
-//intilialize array of immediateThreats
-//idenitfy the immediate threats [[P, P, I] [P, I, P] [I, P, P]]
-//output an array of immediate threats
+  let immediateThreats = [];
+  for (let line = 0; line < WINNING_LINES.length; line++) {
+    let [sq1, sq2, sq3] = WINNING_LINES[line];
+    if (board[sq1] === PLAYER_MARKER && board[sq2] === PLAYER_MARKER &&
+  board[sq3] === INITIAL_MARKER) {
+      immediateThreats.push(Object.keys(board)[sq3]);
+    }
+    if (board[sq1] === PLAYER_MARKER && board[sq2] === INITIAL_MARKER &&
+  board[sq3] === PLAYER_MARKER) {
+      immediateThreats.push(Object.keys(board)[sq2]);
+    }
+    if (board[sq1] === INITIAL_MARKER && board[sq2] === PLAYER_MARKER &&
+  board[sq3] === PLAYER_MARKER) {
+      immediateThreats.push(Object.keys(board)[sq1]);
+    }
+  }
+  return immediateThreats;
 }
 
 function emptySquares(board) {
@@ -130,10 +139,8 @@ function someoneWon(board) {
 }
 
 function detectWinner(board) {
-  let winningLines = [[1, 2, 3], [4, 5, 6], [7, 8, 9],
-    [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]];
-  for (let line = 0; line < winningLines.length; line++) {
-    let [sq1, sq2, sq3] = winningLines[line];
+  for (let line = 0; line < WINNING_LINES.length; line++) {
+    let [sq1, sq2, sq3] = WINNING_LINES[line];
     if (
       board[sq1] === PLAYER_MARKER && board[sq2] === PLAYER_MARKER &&
       board[sq3] === PLAYER_MARKER
