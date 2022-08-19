@@ -66,6 +66,8 @@ function computerChoosesSquare(board) {
 
   let square = emptySquares(board)[randomIndex];
   board[square] = COMPUTER_MARKER;
+
+
 }
 
 function emptySquares(board) {
