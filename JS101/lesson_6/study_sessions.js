@@ -25,9 +25,9 @@ if (sayGoodbye) {
 }
 
 // Higher-order function is a classification given to a function definition if that function either: 
-  // - Expects a function as an argument
-  // - Returns a function from itself
-  // - Does both. 
+// - Expects a function as an argument
+// - Returns a function from itself
+// - Does both. 
 
 function printMessage(func) {
   func();
@@ -119,3 +119,95 @@ appendMessage('dance!'); //takes string 'dance!'
     (I will make one statement for every explicit requirement)
     (I will make one statement for every implicit requirement)
 */
+
+/*
+
+A palindrome is a word, phrase, number, or other sequence of characters which reads the same backward as forward. Examples of numerical palindromes are:
+
+2332 
+110011 
+54322345
+
+You'll be given 2 numbers as arguments: (num, s). Write a function which returns an array of s number of numerical palindromes that come after num. If num is a palindrome itself, it should be included in the count. 
+
+Return "Not valid" instead if any one of the inputs is not a number or is less than 0.
+
+Single digit numbers will NOT be considered numerical palindromes. 
+
+*/
+
+//~~~~~~~~~~~~~ Adv PEDAC
+/*
+Understanding the [P]roblem
+  - Input: 
+    - `num`, `s` -> numbers, numbers > 0
+  - Output:
+    - array, with a length of s
+    - "Not valid"
+  - Rules:
+    - `s` is the length / stopping point
+    - `num` itself is included in the array if it's a palindrome
+    - if `num` or `s` is not a number >= 0, then return "Not valid"
+    - palindrome:
+      - has to be at least 2 digits
+      - is number that reads the same backwards and forwards
+    - if `s` is 0, then return an empty array []
+    - if `num` is palindrome, and `s` is 0, then return an empty array []
+    - string of numbers is not a number
+
+[E]xamples and Test Cases
+
+[D]ata Structure
+num = 6, count = 4
+
+6 => []      [11, 22, 33] <= [11, 22, 33, 44]
+
+=> [11, 22, 33, 44]
+=> length = count
+
+--
+
+num = 75, count = 1
+
+75 => [] => [77]
+75 => [77]
+
+101 => [] => [101] => [101, 111]
+
+[A]lgorithm
+
+*/
+
+console.log(palindrome(6,4));
+// [11,22,33,44]
+console.log(palindrome(75,1));
+// [77]
+console.log(palindrome(101,2));
+// [101,111]
+console.log(palindrome(20,0));
+// []
+console.log(palindrome(0,4));
+// [11,22,33,44]
+
+console.log(palindrome("ACCDDCCA",3));
+// "Not valid"
+console.log(palindrome(773,"1551"));
+// "Not valid"
+console.log(palindrome(-4505,15));
+// "Not valid"
+console.log(palindrome(4505,-15));
+// "Not valid"
+
+//initialize a variable to hold an empty array
+//initialize a variable to hold the current number to start at (make it into an array)
+//initialize a variable to hold the counter
+//check to see if the current number is a palindrome by comparing the current number array is the same order forwards and backwards
+//if the current number is a palindrome
+//convert it back into a number
+//save the number to the empty array
+//Otherwise
+//increment the current number by one
+//check again
+//check to see if length has been reached
+//if length has been reached
+//return the new array

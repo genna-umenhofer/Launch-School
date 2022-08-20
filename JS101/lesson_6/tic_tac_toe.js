@@ -1,3 +1,5 @@
+//Problem: Computer is moving on filled spaces
+
 const readline = require('readline-sync');
 
 const INITIAL_MARKER = ' ';
@@ -65,8 +67,8 @@ function playerChoosesSquare(board) {
 
 function computerChoosesSquare(board) {
   if (determineDefensiveTurn(board)) {
-    let defensiveIndex = determineDefensiveMove(immediateThreats(board));
-    board[defensiveIndex] = COMPUTER_MARKER;
+    let defensiveSpaceToPlay = selectDefensiveMove(immediateThreats(board));
+    board[defensiveSpaceToPlay] = COMPUTER_MARKER;
   } else {
     let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
 
@@ -97,11 +99,11 @@ function determineDefensiveTurn(board) {
   return foundDefensiveTurn;
 }
 
-function determineDefensiveMove(arr) {
+function selectDefensiveMove(arr) {
   let possibleDefensiveMoves = arr;
-  let randomDefensiveMove = Math.floor(
+  let randomIndex = Math.floor(
     Math.random() * possibleDefensiveMoves.length);
-  return randomDefensiveMove;
+  return possibleDefensiveMoves[randomIndex];
 }
 
 function immediateThreats(board) {
