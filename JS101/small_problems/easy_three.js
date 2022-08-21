@@ -21,7 +21,34 @@ function compareLetters(word) {
 crunch('ddaaiilllyyy ddoouubbllee');
 
 //bannerizer ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* 
+PROBLEM:
+- The input is a line of text
+- The output is a box and the line of text inside
 
+- The box is as tall as the number of lines of text +2
+(one on top one on bottom)
+  - minimum 3 lines if string length is 0
+- The box is as long as the number of characters +2
+(one left and one right)
+  - minimum 2 characters if string length is 0
+- The corners of the box are made of a + sign
+
+ALGORITHM:
+determine the number of characters in the string => repeat that many '-' in the top row => repeat that many spaces in the above row => add the | to the start and end of the quote => below rows => ditto top row for the bottom row => print it
+*/
+
+function logInBox(quote) {
+  let numberOfChars = quote.length;
+  let topBottomRow = '+-' + '-'.repeat(numberOfChars) + '-+';
+  let spacerRow = '| ' + ' '.repeat(numberOfChars) + ' |';
+  let quoteRow = '| ' + quote + ' |';
+  console.log(topBottomRow);
+  console.log(spacerRow);
+  console.log(quoteRow);
+  console.log(spacerRow);
+  console.log(topBottomRow);
+}
 
 //stringy strings ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function stringy(num) {
