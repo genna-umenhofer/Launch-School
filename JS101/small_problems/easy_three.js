@@ -85,7 +85,34 @@ function triangle(n) {
 triangle(5);
 
 //madlibs ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+PROBLEM:
+- The input will be a user's noun, verb, adverb, and adjective
+- The output will be a story that has those words in the correct sopts
 
+- the strings will be all lower case when used in the story
+- The story will be output one line at a time
+
+ALGORITHM:
+get user input => save user input to a variable for each word => log the story using the variables in the sentences
+*/
+
+const readline = require('readline');
+
+console.log('Enter a noun: ');
+let noun = readline.question;
+
+console.log('Enter a verb: ');
+let verb = readline.question;
+
+console.log('Enter an adjective: ');
+let adjective = readline.question;
+
+console.log('Enter an adverb: ');
+let adverb = readline.question;
+
+console.log(`I learned a valuable lesson: Never leave home without your ${noun}.`);
+console.log(`If you ${verb} away wihtout it, your hair will turn ${adjective} ${adverb}.`);
 
 //doubles doubles ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
