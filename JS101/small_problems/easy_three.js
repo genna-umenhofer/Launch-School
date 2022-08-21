@@ -231,4 +231,53 @@ function findGrade(average) {
 
 
 //what century is that? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+PROBLEM:
+- The input is and integer year
+- The output is a string htat represents the century
+
+- The century is the year / 100 plus 1
+- If the year is % 100 = 0 then don't add 1
+- if century ends in 1, 2, or 3, the suffix is changed to 'st', 'nd', 'rd'
+- the default ending is 'th'
+
+ALGORITHM:
+determine the numerical century => append the appropriate suffix => return the result
+
+year => determineCentury => century
+- if the year is a multiple of 100 return year / 100
+- return (year / 100) + 1
+
+century => appendSuffix => completeCentury
+- save last digit to a variable
+- save the century to a variable
+- if the last digit is 1, 2, or 3 append corrent ending
+- otherwise append 'th'
+- return century
+*/
+
+function century(year) {
+  return appendSuffix(determineCentury(year));
+}
+
+function determineCentury(year) {
+  if (year % 100 === 0) return year / 100;
+  return Math.floor(year / 100) + 1;
+}
+
+function appendSuffix(century) {
+  let lastDigit = String(century).slice(-1);
+  let completeCentury = String(century);
+  switch (lastDigit) {
+    case '1':
+      return century + 'st'; 
+    case '2':
+      return century + 'nd';
+    case '3':
+      return century + 'rd';
+    default:
+      return century + 'th';
+  }
+}
+
 
