@@ -21,7 +21,7 @@ function compareLetters(word) {
 crunch('ddaaiilllyyy ddoouubbllee');
 
 //bannerizer ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//skipping for now
+
 
 //stringy strings ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function stringy(num) {
@@ -42,7 +42,7 @@ function stringy(num) {
 console.log(stringy(6));    // "101010"
 
 //fibonacci number location by length ~~~~~~~~~~~~~~~~~~
-//skipping for now
+
 
 //right triangles ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /*
@@ -160,7 +160,45 @@ function equalHalves(num) {
 }
 
 //grade book ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+PROBLEM:
+- The input is three integer scores
+- The output is a string letter grade
 
+- The scores will always be between 0 and 100
+- The letter grade is based on the average of all three scores
+- The grade list is rounded to two digits (no decimals)
+
+ALGORITHM:
+find the average => compare the average to the score list => return the score that represents the average
+
+score, score, score => findAverage => average
+- add the three scores together
+- divide by three
+- round the answer?
+- return the answer
+
+average => findGrade => grade
+- compare the score to each range of averages
+- return the grade of the comparison that is true
+*/
+
+function getGrade(score1, score2, score3) {
+  return findGrade(findAverage(score1, score2, score3));
+}
+
+function findAverage(score1, score2, score3) {
+  let average = (Number(score1) + Number(score2) + Number(score3)) / 3;
+  return average.toFixed(0);
+}
+
+function findGrade(average) {
+  if (90 <= average && average <= 100) return 'A';
+  if (80 <= average && average < 90) return 'B';
+  if (70 <= average && average < 80) return 'C';
+  if (60 <= average && average < 70) return 'D';
+  if (0 <= average && average < 60) return 'F';
+}
 
 //clean up the words ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
