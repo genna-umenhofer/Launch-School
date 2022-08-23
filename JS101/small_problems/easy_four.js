@@ -175,16 +175,22 @@ function compareStrings(string1, string2) {
   }
 }
 
-function outputResult(string) {
+function isPalindrome(string) {
   let string1 = string;
   let string2 = reverseTheString(string);
   return compareStrings(string1, string2);
 }
 
-console.log(outputResult('1221'));
+console.log(isPalindrome('1221'));
 
 //palindrome 2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function isPalindrome2(string) {
+  let string1 = string.toLowerCase();
+  let string2 = reverseTheString(string).toLowerCase();
+  return compareStrings(string1, string2);
+}
 
+//see code from palindrome 1
 
 //palindrome numbers ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
