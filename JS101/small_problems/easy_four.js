@@ -192,14 +192,82 @@ function isPalindrome2(string) {
 
 //see code from palindrome 1
 
-//palindrome numbers ~~~~~~~~~~~~~~~~~~~~~~~~~~
+//palindrome numbers ~~~~~~~~~~~~~~~~~~~~~~~ 6 mins
+/*
+PROBLEM:
+- The input is a number (integer)
+- The output is a boolean
 
+- should output true if the number is the same forwards as backwards
+- should output false if not the same
+- single digits are true
 
-//running totals ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ALGORITH:
+change the number to a string => make it into an array => reverse it => compare it to the original number as a string
+*/
 
+function isPalindromicNumber(num) {
+  return String(num) === String(num).split('').reverse().join('');
+}
 
-//letter counter 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//running totals ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 8 mins
+/*
+PROBLEM:
+- the input is an array
+- the output is the array but each element is a running total of th ewhole array
 
+- array length should be the same before and after
+- the first array is always the same in both arrays
+
+ALGORITHM:
+make an empty array? => make a running total counter => for every element, add the running total counter
+*/
+
+function runningTotal(arr) {
+  let runningTotal = 0;
+  return arr.map(elem => {
+    runningTotal += elem;
+    elem = runningTotal;
+    return elem;
+  })
+}
+
+//letter counter 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~ 20 mins
+/*
+PROBLEM:
+- The input is a string of 1+ words
+- The output is an object of counts of word sizes
+
+ALGORITHM:
+make an empty object => make the string into an array of words => for each word, find the length => see if there is already a key => if there is, add one or make the length the key and add 1 => return the object
+
+string => makeArray => array
+- return the string as an array of words
+
+word, object => compareLength => boolean
+- find the word length
+- see if the object has the key already
+- output true if it does, false if not
+
+*/
+
+function wordSizes(string) {
+  let object = {};
+  let stringArray = string.split(' ');
+  
+  if (stringArray[0].length === 0) return {};
+
+  for (let index = 0; index < stringArray.length; index += 1) {
+    let wordLength = stringArray[index].length;
+    if (Object.hasOwn(object, wordLength)) {
+      object[wordLength] += 1;
+    } else {
+      object[wordLength] = 1;
+    }
+  }
+
+  return object;
+}
 
 //letter counter 2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
