@@ -96,11 +96,92 @@ function printResult(bool, array) {
 console.log(printResult(doesInclude(userNumbers), userNumbers));
 
 
-//when will I retire ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//when will I retire ~~~~~~~~~~~~~~~~~~~~~~~~~ 14 mins
+/*
+PROBLEM:
+- The input is the user's age & age at retirement
+- The output is a string that shows how many years until retirement
 
+- The output shows the current year
+- The output shows the year the person will retire
+- The years to retire is the difference between the age of retirement and current age
+- The year of retirement is the diffrence plus the year to retire
 
-//palindrome 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ALGORITHM:
+subtract the user's current age from the retirement age => add the age to the current year => output the sentence
 
+currentAge, retirementAge => findYearsToRetire => yearsLeft
+- return retirementAge - currentAge
+
+yearsLeft, currentYear => findRetirementYear => retireYear
+- return currentYear + yearsLeft
+
+currentYear, currentAge, retirementAge => retirementMessage => interpolated string
+- set findYearsToRetire to a variable
+- set firndRetirementYear to a variable
+- return interpolated string
+*/
+
+function findYearsToRetire(currentAge, retirementAge) {
+  return retirementAge - currentAge;
+}
+
+function findRetirementYear(yearsLeft, currentYear) {
+  return Number(currentYear) + Number(yearsLeft);
+}
+
+function retirementMessage(currentYear, currentAge, retirementAge) {
+  let yearsLeft = findYearsToRetire(currentAge, retirementAge);
+  let retirementYear = findRetirementYear(yearsLeft, currentYear);
+  return `It's ${currentYear}. You will retire in ${retirementYear}. You have only ${yearsLeft} years of work to go!`;
+}
+
+console.log(retirementMessage(2017, 30, 70));
+
+//palindrome 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 18 mins
+/*
+PROBLEM:
+- The input is a string
+- The output is a boolean
+
+- A palindrome is a string that has the same oreder of letters forward and backward
+- Case matters
+- characters matter
+
+ALGORITHM:
+take the string and break it into letters => reverse the letters => compare the two strings at each letter => output boolean 
+
+string => reverseTheString => array
+- make the string into an array
+- reverse the array
+- put the array back into a string
+- output the string
+
+string1, string2 => compareStrings => boolean
+- for each letter of each string, see if they are ===
+- if they are equal, return true
+- if they are not equal, return false
+*/
+
+function reverseTheString(string) {
+  return string.split('').reverse().join('');
+}
+
+function compareStrings(string1, string2) {
+  while (true) {
+    for (let idx = 0; idx < string1.length; idx += 1){
+      return string1[idx] === string2[idx];
+    }
+  }
+}
+
+function outputResult(string) {
+  let string1 = string;
+  let string2 = reverseTheString(string);
+  return compareStrings(string1, string2);
+}
+
+console.log(outputResult('1221'));
 
 //palindrome 2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
