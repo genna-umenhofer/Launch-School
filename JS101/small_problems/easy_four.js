@@ -169,7 +169,7 @@ function reverseTheString(string) {
 
 function compareStrings(string1, string2) {
   while (true) {
-    for (let idx = 0; idx < string1.length; idx += 1){
+    for (let idx = 0; idx < string1.length; idx += 1) {
       return string1[idx] === string2[idx];
     }
   }
@@ -183,7 +183,7 @@ function isPalindrome(string) {
 
 console.log(isPalindrome('1221'));
 
-//palindrome 2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//palindrome 2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 2 mins
 function isPalindrome2(string) {
   let string1 = string.toLowerCase();
   let string2 = reverseTheString(string).toLowerCase();
