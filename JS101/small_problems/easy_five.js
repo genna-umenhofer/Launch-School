@@ -60,28 +60,126 @@ function union(array1, array2) {
 
 console.log(union([1, 3, 5], [3, 6, 9]));
 
-//halvsies ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//halvsies ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 17 mins
+/*
+Problem:
+- input is one array
+- output is two arrays
 
+- the output arrays will be the original array first half and second half
+- if there is an odd number of elements, first half should get the extra element
+
+Algorithm:
+make a new array => find the length of the array => if even, arr1 is the front part from 0 to 1/2 length => if odd, arr1 is front part 0 to length  + 1 => arr2 is 1/2 length to end => push array halves to new array => return arrays
+
+[1, 2, 3, 4]
+ 0  1  2  3
+
+ [0, 1] [2, 3]
+
+*/
+
+function halvsies(arr) {
+  let newArray = [];
+  if (arr.length % 2 === 0) {
+    let halfNumber = arr.length / 2;
+    newArray.push(arr.slice(0, halfNumber));
+  } else {
+    let halfNumber = Math.floor((arr.length / 2) + 1);
+    console.log(halfNumber);
+    newArray.push(arr.slice(0, halfNumber));
+  }
+  newArray.push(arr.slice((arr.length / 2) + 1));
+  return newArray
+}
+
+console.log(halvsies([1, 2, 3, 4, 5]));
 
 //find the duplicate ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-//combine two lists ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//combine two lists ~~~~~~~~~~~~~~~~~~~~~~~~ 5 mins
+/*
+Problem:
+- Input is 2 arrays
+- output is one array
+
+- The array should alternate elements fromeach array
+
+Algorithm:
+make a new array => select first index of array 1 => push it to new array => select first index if a2 => push it => increment counter => repeat until done
+*/
+
+function interleave(arr1, arr2) {
+  let newArr =[];
+  for (let idx = 0; idx < arr1.length; idx += 1) {
+    newArr.push(arr1[idx]);
+    newArr.push(arr2[idx]);
+  }
+  return newArr;
+}
+
+console.log(interleave([1, 2, 3], ['a', 'b', 'c']))
 
 
-//multipl avg ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//multipl avg ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 6 mins
+/*
+Algorithm:
+make a new number => for index multiply index by number => save result to number => repeat for all integers => divide number by lemgth of array => return result
+*/
 
+function multiplicativeAverage(array) {
+  let average = array[0];
+  for (let idx = 1; idx < array.length; idx += 1) {
+    average = average * array[idx];
+  }
+  average = average / array.length;
+  return average.toFixed(3);
+}
 
-//multiply lists ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+console.log(multiplicativeAverage([2, 5, 7, 11, 13, 17]));
 
+//multiply lists ~~~~~~~~~~~~~~~~~~~~~~~~~~~ 3 mins
+/*
+make new array => multiply arr1[idx] with arr2[idx] => push result to new array => repeat for length of arr1 => return result array
+*/
 
-//list of digits~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function multiplyList(arr1, arr2) {
+  let newArr = [];
+  for (let idx = 0; idx < arr1.length; idx++) {
+    newArr.push(arr1[idx] * arr2[idx]);
+  }
+  return newArr;
+}
 
+console.log(multiplyList([3, 5, 7], [9, 10, 11]));
+
+//list of digits~~~~~~~~~~~~~~~~~~~~~~~~~~~ 2 mins
+/*
+split array => make each elem a digit again => return
+*/
+
+function digitList(num) {
+  let array = String(num).split('');
+  return array.map(num => Number(num));
+}
+
+console.log(digitList(12345));
 
 //how many ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-//array average ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//array average ~~~~~~~~~~~~~~~~~~~~~~~~~~ 2 mins
+function average(array) {
+  let average = array[0];
+  for (let idx = 1; idx < array.length; idx += 1) {
+    average = average + array[idx];
+  }
+  average = average / array.length;
+  return Math.floor(average);
+}
+
+console.log(average([1, 5, 87, 45, 8, 8]));
 
 
 //after midnight 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
