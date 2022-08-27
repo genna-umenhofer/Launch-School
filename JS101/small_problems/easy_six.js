@@ -91,26 +91,189 @@ function centerOf(string) {
 
 console.log(centerOf('LaunchSchool'));
 
-//always return neg ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//always return neg ~~~~~~~~~~~~~~~~~~~~~~~~~ 4 mins
+/* 
+PROBLEM:
+- input is a number
+- output is a number that is negative
+
+ALGORITHM:
+take the absolute value of the number => multiply it by -1 => return the number
+*/
+
+function negative(num) {
+  return Math.abs(num) * -1;
+}
+
+console.log(negative(-1));
+
+//count up ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 4 mins
+/* 
+PROBLEM:
+- The input is a number
+- The output is an array
+
+- array elements are 1 through whatever the number is (inclusive)
+
+ALGORITHM:
+set a counter = num => set a new array => push the counter value to the array => decrement the counter => repeat until counter is 0 => return array
+*/
+
+function sequence(num) {
+  let array = [];
+  for (let counter = num; counter > 0; counter--) {
+    array.push(counter);
+  }
+  return array.reverse();
+}
+
+console.log(sequence(5));
 
 
-//count up ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//name swap ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 4 mins
+/*
+PROB:
+- The input is string
+- The output is string
+
+- input is always FIRST SPACE LAST
+- output is always LAST COMMA SPACE FIRST
+
+ALGO:
+split the string into two variables, first and last => return a string of appended strings joined by a comma and space
+*/
+
+function swapName(name) {
+  let fullName = name.split(' ');
+  let firstName = fullName[0];
+  let lastName = fullName[1];
+  return lastName + ', ' + firstName;
+}
+
+console.log(swapName('Joe Roberts'));
 
 
-//name swap ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//sequence count ~~~~~~~~~~~~~~~~~~~~~~~~~~ 10 mins
+/* 
+PROB:
+- The input is two integers
+- The output is an array
 
+- first arg is the count
+- second arg is the starting num
+- array has same number of elements as count
+- value of element is a multiple of starting num
+- if starting num is 0, return empty array
 
-//sequence count ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ALGO:
+check if starting num is 0 => return empty array if it is
 
+set an empty array => set a counter equal to 1 => multiply the starting num by counter => push result to array => do this until counter is >= starting num => return array
+*/
 
-//reverse it 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function sequence(count, startingNum) {
+  if (Number(startingNum) === 0) return [];
 
+  let resultArray = [];
 
-//reverse it 2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  for (let counter = 1; counter <= count; counter++) {
+    resultArray.push(startingNum * counter);
+  }
 
+  return resultArray;
+}
 
-//reversed arrays ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+console.log(sequence(5, 1));
 
+//reverse it 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 3 mins
+/*
+PROB:
+- The input is a string
+- The output is a string
+
+- The output is the words reversed order as a sentence
+
+ALGO:
+split the string at each word => reverse the array => join the elements of the array => return the string
+*/
+
+function reverseSentence(string) {
+  return string.split(' ').reverse().join(' ');
+}
+
+console.log(reverseSentence('Reverse these words'));
+
+//reverse it 2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 8 mins
+/*
+Problem:
+- The input is a string
+- The output is a string
+
+- If the word is longer than or exactly 5 letters, reverse it
+- If the word is shorter than 5 letters keep it the same
+
+Algo:
+split the string into words => if the word length is >= 5 reverse it => otherwise, keep it => return new string
+
+map(word => {
+  if >= 5 return reverseIt(word)
+  else return 
+})
+
+word => reverseIt => drow
+- split string, reverse, join
+- return it
+*/
+
+function reverseWords(string) {
+  let splitSentence = string.split(' ');
+  let reversedSentence = splitSentence.map(word => {
+    if (word.length >= 5) {
+      return reverseIt(word);
+    } else {
+      return word;
+    }
+  });
+  return reversedSentence.join(' ');
+}
+
+function reverseIt(word) {
+  return word.split('').reverse().join('');
+}
+
+console.log(reverseWords('Walk around the block'));
+
+//reversed arrays ~~~~~~~~~~~~~~~~~~~~~~~~~~ 20 mins
+/*
+PROB:
+- the input is an array
+- the output is an array
+
+- the output array should be the reverse order of the input array
+- no using hte reverse method
+- should mutate the array
+
+[1, 2, 3, 4] length = 4
+[4, 1, 2, 3] length = 4
+
+ALGO: (did not work)
+set a counter = array length => select the last element in the array using the counter as an index => push that to the front of the array => decrement the counter => repeat until counter reaches 0 => return array
+
+ALGO: 
+make a copy of the array => make a counter => for each element of the original array, make is equal to the counter, starting at the end of the original array => increment the counter => loop through the whole array = > return the array
+*/
+
+function reverseArray(array) {
+  let arrayCopy = array.slice();
+  let copyCounter = 0;
+  for (let counter = (array.length - 1); counter >= 0; counter--) {
+    array[counter] = arrayCopy[copyCounter];
+    copyCounter++;
+  }
+  return array;
+}
+
+console.log(reverseArray([1, 2, 3, 4]));
 
 //matching parentheses ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
