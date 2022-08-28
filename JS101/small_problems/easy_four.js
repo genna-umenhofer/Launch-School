@@ -269,8 +269,44 @@ function wordSizes(string) {
   return object;
 }
 
-//letter counter 2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//letter counter 2 ****************************************
+function wordSizes2(string) {
+  let object = {};
+  let stringArray = string.split(' ');
+  
+  if (stringArray[0].length === 0) return {};
 
+  for (let index = 0; index < stringArray.length; index += 1) {
+    let wordLength = cleanWord(stringArray[index].toLowerCase()).length;
+
+    if (wordLength === 0) {
+      continue;
+    }
+
+    object[wordLength] = object[wordLength] || 0;
+    object[wordLength] += 1;
+  }
+
+  return object;
+}
+
+function cleanWord(string) {
+  let result = '';
+
+  for (let idx = 0; idx < string.length; idx += 1) {
+    if (isLetter(string[idx])) {
+      result += string[idx];
+    }
+  }
+
+  return result;
+}
+
+function isLetter(char) {
+  return char >= 'a' && char <= 'z';
+}
+
+console.log(wordSizes2('Hey diddle diddle, the cat and the fiddle!'));
 
 //letter swap ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

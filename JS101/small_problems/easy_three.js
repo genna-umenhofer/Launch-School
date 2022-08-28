@@ -68,8 +68,24 @@ function stringy(num) {
 
 console.log(stringy(6));    // "101010"
 
-//fibonacci number location by length ~~~~~~~~~~~~~~~~~~
+//fibonacci number location by length ***********************
+function findFibIndexByLength(length) {
+  let first = 1n;
+  let second = 2n;
+  let count = 2n;
+  let fibonacci;
 
+  do {
+    fibonacci = first + second;
+    count += 1n;
+    first = second;
+    second = fibonacci;
+  } while (String(fibonacci).length < length);
+
+  return count;
+}
+
+console.log(findFibIndexByLength(10n));
 
 //right triangles ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /*
@@ -227,7 +243,38 @@ function findGrade(average) {
   if (0 <= average && average < 60) return 'F';
 }
 
-//clean up the words ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//clean up the words ******************************************************
+/*
+Problem:
+- The input is a string
+- The output is a string
+
+- The input will have one or more alpha-numeric chars 
+- The output will have those replaced by spaces
+
+
+Algo:
+make an empty array => make the string an array => for each word in the string, iterate through the word => check to see if it includes an alphabet letter => if it is, keep it => if not, replace it with a space => return the cleaned word => join the sentence with a space => return sentence
+
+*/
+
+function cleanUp(string) {
+  let cleanedArr = [];
+  string = string.split('');
+
+  for (let i = 0; i < string.length; i++) {
+    if ((string[i].charCodeAt() >= 65 && string[i].charCodeAt() <= 90)
+    || (string[i].charCodeAt() >= 97 && string[i].charCodeAt() <= 122)) {
+      cleanedArr.push(string[i]);
+    } else if (cleanedArr[cleanedArr.length - 1] === ' ') continue;
+    else cleanedArr.push(' ');
+  }
+  
+  return cleanedArr.join('');
+}
+
+console.log(cleanUp("---what's my +*& line?"));
+
 
 
 //what century is that? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
