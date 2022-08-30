@@ -3,8 +3,16 @@ const CARDS = [
   ['H', 'Ace'], ['H', 10], ['H', 10], ['H', 10], ['H', 10], ['H', 9], ['H', 8],
   ['H', 7], ['H', 6], ['H', 5], ['H', 4], ['H', 3], ['H', 2],
   ['D', 'Ace'], ['D', 10], ['D', 10], ['D', 10], ['D', 10], ['D', 9], ['D', 8],
-  ['D', 7], ['D', 6], ['D', 5], ['D', 4], ['D', 3], ['D', 2]
+  ['D', 7], ['D', 6], ['D', 5], ['D', 4], ['D', 3], ['D', 2],
+  ['S', 'Ace'], ['S', 10], ['S', 10], ['S', 10], ['S', 10], ['S', 9], ['S', 8],
+  ['S', 7], ['S', 6], ['S', 5], ['S', 4], ['S', 3], ['S', 2],
+  ['C', 'Ace'], ['C', 10], ['C', 10], ['C', 10], ['C', 10], ['C', 9], ['C', 8],
+  ['C', 7], ['C', 6], ['C', 5], ['C', 4], ['C', 3], ['C', 2]
 ];
+
+function textBreak() {
+  console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+}
 
 function shuffle(array) {
   let shuffledArray = array.slice();
@@ -70,6 +78,7 @@ function displayHand(playerHand, dealerHand) {
 
 function playerTurn(playerHand, dealerHand, cards) {
   while (true) {
+    textBreak();
     displayHand(playerHand, dealerHand);
     if (checkForABust(playerHand)) break;
     console.log("hit or stay?");
@@ -137,7 +146,12 @@ while (true) {
   let rules = readline.question();
 
   if (rules === 'yes') {
-    //display rules
+    textBreak();
+    console.log("RULES FOR 21:");
+    console.log("The player and the dealer will be dealt two cards. The player can see their own cards and one of the dealer's cards.");
+    console.log("On their turn, the player can chose to hit as many times as they want.");
+    console.log("The goal is to get closest to a total hand value of 21 without going over.");
+    console.log("Face cards are worth 10. Aces are worth 1 or 11 depending on what is best for the player.");
   }
 
   while (true) {
@@ -157,6 +171,7 @@ while (true) {
       displayResult(playerHand, dealerHand);
     }
 
+    textBreak();
     console.log('Would you like to play again? yes/no');
     let playAgain = readline.question();
 
