@@ -1,11 +1,12 @@
+const readline = require('readline-sync');
 const CARDS = [
-  ['H', 'Ace'], ['H', 'King'], ['H', 'Queen'], ['H', 'Jack'], ['H', '10'], ['H', '9'], ['H', '8'],
+  ['H', 'Ace'], ['H', '10'], ['H', '10'], ['H', '10'], ['H', '10'], ['H', '9'], ['H', '8'],
   ['H', '7'], ['H', '6'], ['H', '5'], ['H', '4'], ['H', '3'], ['H', '2'],
-  ['D', 'Ace'], ['D', 'King'], ['D', 'Queen'], ['D', 'Jack'], ['D', '10'], ['D', '9'], ['D', '8'],
+  ['D', 'Ace'], ['D', '10'], ['D', '10'], ['D', '10'], ['D', '10'], ['D', '9'], ['D', '8'],
   ['D', '7'], ['D', '6'], ['D', '5'], ['D', '4'], ['D', '3'], ['D', '2'],
-  ['S', 'Ace'], ['S', 'King'], ['S', 'Queen'], ['S', 'Jack'], ['S', '10'], ['S', '9'], ['S', '8'],
+  ['S', 'Ace'], ['S', '10'], ['S', '10'], ['S', '10'], ['S', '10'], ['S', '9'], ['S', '8'],
   ['S', '7'], ['S', '6'], ['S', '5'], ['S', '4'], ['S', '3'], ['S', '2'],
-  ['C', 'Ace'], ['C', 'King'], ['C', 'Queen'], ['C', 'Jack'], ['C', '10'], ['C', '9'], ['C', '8'],
+  ['C', 'Ace'], ['C', '10'], ['C', '10'], ['C', '10'], ['C', '10'], ['C', '9'], ['C', '8'],
   ['C', '7'], ['C', '6'], ['C', '5'], ['C', '4'], ['C', '3'], ['C', '2']
 ];
 
@@ -47,28 +48,75 @@ function displayHand(playerHand, dealerHand) {
 // display hand
 // hit or pass
 // check for a bust
+function playerTurn(playerHand, dealerHand, cards) {
+  while (true) {
+    displayHand(playerHand, dealerHand);
+    console.log("hit or stay?");
+    let answer = readline.question();
+
+    dealCard(playerHand, cards);
+
+    if (answer === 'stay' || checkForABust(playerHand)) break;
+  }
+
+  if (checkForABust(playerHand)) {
+    //displayResult;
+    console.log('You busted! The computer wins!');
+  } else {
+    console.log('You chose to stay.');
+  }
+}
 
 // DEALER TURN
 // display hand
 // hit or pass
 // check for a bust
+function dealerTurn(dealerHand, cards) {
+  let counter = 0;
 
-// HIT OR PASS
-// deal a card
-// continue on
+  while (true) {
+    if (sumOfHand(dealerHand) <= 15) {
+      dealCard(dealerHand, cards);
+      counter++;
+    } else {
+      break;
+    }
+  }
+
+  if (checkForABust(dealerHand)) {
+    //displayResult;
+    console.log(`The dealer hit ${counter} time(s).`);
+    console.log('The dealer busted! You win!');
+  } else {
+    console.log(`The dealer hit ${counter} time(s). Let's see who won!`);
+  }
+}
 
 //CHECK FOR A BUST
 // adds up the total of the cards in hand to see if it is over 21
+function sumOfHand(hand) {
+  let total = hand.reduce((current, previous) => {
+    return current + previous;
+  }, 0);
+  return total;
+}
+
 function checkForABust(hand) {
-  let total = hand.reduce((current, previous) => {return current + previous}, 0);
-  return total > 21;
+  return sumOfHand(hand) > 21;
 }
 
 //DETERMINE WINNER
 // compares score if neither hand is a bust
-
-//DISPLAY RESULT
 // logs the winner to the console
+function displayResult(playerHand, dealerHand) {
+  if (sumOfHand(playerHand) > sumOfHand(dealerHand)) {
+    console.log('You win!');
+  } else if (sumOfHand(playerHand) < sumOfHand(dealerHand)) {
+    console.log('The dealer wins!');
+  } else {
+    console.log('It is a tie!');
+  }
+}
 
 // CALCULATING ACES
 // determine if the ace should be an 11 or a 1
@@ -97,16 +145,11 @@ while (true) {
   initializeHands(playerHand, dealerHand, shuffledDeck);
   displayHand(playerHand, dealerHand);
 
-  while (true) {
-    //player turn
-  }
+  playerTurn(playerHand, dealerHand, shuffledDeck);
 
-  while (true) {
-    //computer turn
-  }
+  dealerTurn(dealerHand, shuffledDeck);
 
-  //determine winner
-  //display result
+  displayResult(playerHand, dealerHand);
 
   // play again?
 }
