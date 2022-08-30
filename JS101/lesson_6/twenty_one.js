@@ -59,6 +59,7 @@ function displayHand(playerHand, dealerHand) {
 function playerTurn(playerHand, dealerHand, cards) {
   while (true) {
     displayHand(playerHand, dealerHand);
+    if (checkForABust(playerHand)) break;
     console.log("hit or stay?");
     let answer = readline.question();
 
@@ -95,12 +96,22 @@ function dealerTurn(dealerHand, cards) {
   }
 }
 
+function determineWinner(playerHand, dealerHand) {
+  if (sumOfHand(playerHand) > sumOfHand(dealerHand)) {
+    return 'player';
+  } else if (sumOfHand(playerHand) < sumOfHand(dealerHand)) {
+    return 'dealer';
+  } else {
+    return 'tie';
+  }
+}
+
 function displayResult(playerHand, dealerHand) {
   console.log(`The player has ${sumOfHand(playerHand)} points.`);
   console.log(`The dealer has ${sumOfHand(dealerHand)} points.`);
-  if (sumOfHand(playerHand) > sumOfHand(dealerHand)) {
+  if (determineWinner(playerHand, dealerHand) === 'player') {
     console.log('You win!');
-  } else if (sumOfHand(playerHand) < sumOfHand(dealerHand)) {
+  } else if (determineWinner(playerHand, dealerHand) === 'dealer') {
     console.log('The dealer wins!');
   } else {
     console.log('It is a tie!');
@@ -108,23 +119,39 @@ function displayResult(playerHand, dealerHand) {
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 while (true) {
-  let playerHand = [];
-  let dealerHand = [];
-  let shuffledDeck = initializeDeck(CARDS);
+  console.log('Welcome to 21!');
+  console.log('Would you like to see the rules? yes/no');
+  let rules = readline.question();
 
-  initializeHands(playerHand, dealerHand, shuffledDeck);
-
-  playerTurn(playerHand, dealerHand, shuffledDeck);
-
-  if (!checkForABust(playerHand)) {
-    dealerTurn(dealerHand, shuffledDeck);
+  if (rules === 'yes') {
+    //display rules
   }
 
-  if (!checkForABust(playerHand) && !checkForABust(playerHand)) {
-    displayResult(playerHand, dealerHand);
+  while (true) {
+    let playerHand = [];
+    let dealerHand = [];
+    let shuffledDeck = initializeDeck(CARDS);
+
+    initializeHands(playerHand, dealerHand, shuffledDeck);
+
+    playerTurn(playerHand, dealerHand, shuffledDeck);
+
+    if (!checkForABust(playerHand)) {
+      dealerTurn(dealerHand, shuffledDeck);
+    }
+
+    if (!checkForABust(playerHand) && !checkForABust(dealerHand)) {
+      displayResult(playerHand, dealerHand);
+    }
+
+    console.log('Would you like to play again? yes/no');
+    let playAgain = readline.question();
+
+    if (playAgain === 'no') break;
   }
 
-  // play again?
+  console.log('Thanks for playing 21!');
+
+  break;
 }
