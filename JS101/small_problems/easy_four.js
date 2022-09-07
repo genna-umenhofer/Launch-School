@@ -308,5 +308,42 @@ function isLetter(char) {
 
 console.log(wordSizes2('Hey diddle diddle, the cat and the fiddle!'));
 
-//letter swap ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//letter swap ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 12 mins
+/*
+Problem:
+Input = string
+output = string
 
+- The output has the first letter swapped with the last letter.
+- The output is case sensitive
+
+Algotirthm:
+sep the str into array of words => iterate over the array =>
+flip the first letter and the last letter => combine the array back to a str
+=> output the result
+
+sep string => .split(' ')
+iterate => .map()
+function flip => in word => out word with 1st and last flipped
+  save first letter
+  save last letter
+  save remaining word
+  return last + remaining + first
+combine => .join(' ')
+output => return
+*/
+
+function swap(string) {
+  let stringArray = string.split(' ');
+  let swappedLetterArray = stringArray.map(word => flip(word));
+  return swappedLetterArray.join(' ');
+}
+
+function flip(word) {
+  let firstLetter = word[0];
+  let lastLetter = word[word.length - 1];
+  let remainingWord = word.slice(1, (word.length - 1));
+  return lastLetter + remainingWord + firstLetter;
+}
+
+console.log(swap('Oh what a wonderful day it is'));
