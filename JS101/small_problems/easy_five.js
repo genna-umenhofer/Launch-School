@@ -95,8 +95,35 @@ function halvsies(arr) {
 
 console.log(halvsies([1, 2, 3, 4, 5]));
 
-//find the duplicate ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//find the duplicate ~~~~~~~~~~~~~~~~~~~~~~~~~~ 18 mins
+/*
+Problem:
+Input = array
+Output = number
 
+- unordered array
+- exactly one value that is duplicated
+
+Algorithm:
+set a number to search for => iterate through array not includeing number =>
+search for the number => if the number is duplicated save it to number to search
+for => return number => if not duplicated increment the counter => continue
+*/
+
+
+function findDup(array) {
+  let duplicate;
+  for (let index = 0; index < array.length; index++) {
+    let arrayPart = array.slice(index + 1);
+    if (arrayPart.includes(array[index])) {
+      duplicate = array[index];
+      break;
+    }
+  }
+  return duplicate;
+}
+
+console.log(findDup([1, 3, 1, 5]));
 
 //combine two lists ~~~~~~~~~~~~~~~~~~~~~~~~ 5 mins
 /*
@@ -166,8 +193,51 @@ function digitList(num) {
 
 console.log(digitList(12345));
 
-//how many ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//how many ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 14 mins
+/*
+Problem:
+Input = array
+Output = string & number
 
+- input will be an array of different strings
+- output will be each string and the number of times it appears within the array
+
+Data:
+array => object => log "key: value"
+
+Algorithm:
+- create an empty object
+- iterate over the array
+- if the current element is already a key increment the value by 1
+- otherwise initiate the key with a value of 0 then increment by 1
+- once iteration is complete, log the key value pairs to the console
+*/
+
+function countOccurrences(array) {
+  let object = {};
+
+  array.forEach(element => {
+    if (Object.hasOwn(object, element)) {
+      object[element] += 1;
+    } else {
+      object[element] = 0;
+      object[element] += 1;
+    }
+  })
+
+  listOccurrences(object);
+}
+
+function listOccurrences(obj) {
+  for (let key in obj) {
+    console.log(`${key}: ${obj[key]}`);
+  }
+}
+
+let vehicles = ['car', 'car', 'truck', 'car', 'SUV', 'truck',
+                'motorcycle', 'motorcycle', 'car', 'truck'];
+
+countOccurrences(vehicles);
 
 //array average ~~~~~~~~~~~~~~~~~~~~~~~~~~ 2 mins
 function average(array) {
