@@ -275,5 +275,38 @@ function reverseArray(array) {
 
 console.log(reverseArray([1, 2, 3, 4]));
 
-//matching parentheses ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//matching parentheses ~~~~~~~~~~~~~~~~~~~~~~~~~~ 10 mins
+/*
+Algorithm:
+- initialize a counter
+- loop through the string
+  - if the current character is (
+    - add one to the counter
+  - else if the current character is )
+    - subtract one from the counter
+  -CHECK that the counter is not less than 0
+    - return false if it is
+- return true if the counter is 0
+*/
 
+function isBalanced(string) {
+  let counter = 0;
+  for (let index = 0; index < string.length; index++) {
+    if (string[index] === '(') {
+      counter += 1;
+    } else if (string[index] === ')') {
+      counter -= 1;
+    }
+    if (counter < 0) return false;
+  }
+  return counter === 0;
+}
+
+console.log(isBalanced("What (is) this?") === true);
+console.log(isBalanced("What is) this?") === false);
+console.log(isBalanced("What (is this?") === false);
+console.log(isBalanced("((What) (is this))?") === true);
+console.log(isBalanced("((What)) (is this))?") === false);
+console.log(isBalanced("Hey!") === true);
+console.log(isBalanced(")Hey!(") === false);
+console.log(isBalanced("What ((is))) up(") === false);
