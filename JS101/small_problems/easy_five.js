@@ -146,7 +146,7 @@ function interleave(arr1, arr2) {
   return newArr;
 }
 
-console.log(interleave([1, 2, 3], ['a', 'b', 'c']))
+console.log(interleave([1, 2, 3], ['a', 'b', 'c']));
 
 
 //multipl avg ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 6 mins
