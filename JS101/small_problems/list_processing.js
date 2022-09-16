@@ -257,11 +257,150 @@ function sumOfSums(num) {
 
 console.log(sumOfSums([3, 5, 2]));
 
-//grocery list ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//grocery list ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 8 mins
+/*
+Problem
+Input: 2d array
+Output: 1d array
+
+- 2d has food and number
+- 1d has food written as many times as the number
+
+Algorithm:
+- make a new array
+- iterate through the array
+- save the number of the first sub array to a variable
+- while the variable is more than 0, push the fruit name to a new array
+- do this for each subarray
+- return the new array
+*/
+
+function buyFruit(array) {
+  let fruitList = [];
+  for (let idx = 0; idx < array.length; idx++) {
+    let numberToBuy = array[idx][1];
+    let fruitType = array[idx][0];
+    for (numberToBuy; numberToBuy > 0; numberToBuy--) {
+      fruitList.push(fruitType);
+    }
+  }
+  return fruitList;
+}
+
+console.log(buyFruit([['apple', 3], ['orange', 1], ['banana', 2]]));
+
+//inventory item transact ~~~~~~~~~~~~~~~~~~~~~~~~~ 8 mins
+/*
+Problem
+Input: number, string (array of objects)
+Output: array 
+
+- the number is the inventory ID
+- the string is the list of transactions
+
+Algorithm:
+- make a new array
+- iterate through the transactions 
+- compare the id key of each object to the transaction number
+- if it matches, push the object to the new array
+- return the new array
+*/
 
 
-//inventory item transact ~~~~~~~~~~~~~~~~~~~~~~~~~
+let transactions = [ { id: 101, movement: 'in',  quantity:  5 },
+                     { id: 105, movement: 'in',  quantity: 10 },
+                     { id: 102, movement: 'out', quantity: 17 },
+                     { id: 101, movement: 'in',  quantity: 12 },
+                     { id: 103, movement: 'out', quantity: 20 },
+                     { id: 102, movement: 'out', quantity: 15 },
+                     { id: 105, movement: 'in',  quantity: 25 },
+                     { id: 101, movement: 'out', quantity: 18 },
+                     { id: 102, movement: 'in',  quantity: 22 },
+                     { id: 103, movement: 'out', quantity: 15 }, ];
 
+function transactionsFor(id, list) {
+  let transactionList = [];
+  for (let idx = 0; idx < list.length; idx++) {
+    let transactionID = list[idx]['id'];
+    if (transactionID === id) {
+      transactionList.push(list[idx]);
+    }
+  }
+  return transactionList;
+}
 
-//inventory item avail ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+console.log(transactionsFor(101, transactions));
 
+//inventory item avail ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 19 mins
+/*
+Problem
+Input: list of transactions array
+Output: boolean
+
+- output should be true if there is an item available
+- output should be false if not
+- need to consider 'in' and 'out' transactions as adding or subtracting inventory
+
+Algorithm:
+- use previous function to return an array as a parameter for this function
+- figure out if there is stock
+  array of transactions => calculateQuantAvail => number
+  - make a current total variable
+  - iterate over the array elements
+  - access in/out
+  - access the quantity
+  - if in add the quantity to current total
+  - if out subtract
+  - return current total
+- if the current tutal is > 0 true
+- if < 0 false
+*/
+
+let transactions = [ { id: 101, movement: 'in',  quantity:  5 },
+                     { id: 105, movement: 'in',  quantity: 10 },
+                     { id: 102, movement: 'out', quantity: 17 },
+                     { id: 101, movement: 'in',  quantity: 12 },
+                     { id: 103, movement: 'out', quantity: 20 },
+                     { id: 102, movement: 'out', quantity: 15 },
+                     { id: 105, movement: 'in',  quantity: 25 },
+                     { id: 101, movement: 'out', quantity: 18 },
+                     { id: 102, movement: 'in',  quantity: 22 },
+                     { id: 103, movement: 'out', quantity: 15 }, ];
+
+function transactionsFor(id, list) {
+  let transactionList = [];
+  for (let idx = 0; idx < list.length; idx++) {
+    let transactionID = list[idx]['id'];
+    if (transactionID === id) {
+      transactionList.push(list[idx]);
+    }
+  }
+  return transactionList;
+}
+
+function isItemAvailable(id, list) {
+  let sortedList = transactionsFor(id, list);
+  let currentAvail = calcQuantAvail(sortedList);
+
+  if (currentAvail > 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function calcQuantAvail(array) {
+  let currentTotal = 0;
+  for (let idx = 0; idx < array.length; idx++) {
+    let movement = array[idx]['movement'];
+    let quantity = array[idx]['quantity'];
+    if (movement === 'in') {
+      currentTotal += quantity;
+    } else if (movement === 'out') {
+      currentTotal -= quantity;
+    }
+  }
+  return currentTotal;
+}
+
+console.log(isItemAvailable(105, transactions));
