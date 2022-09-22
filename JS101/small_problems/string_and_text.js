@@ -102,10 +102,73 @@ function letterCaseCount(string) {
 console.log(letterCaseCount('abCdef 123'));
 
 //capitalize words ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*Problem
+Input: string
+Output: string
 
+-Each word should be capitalized
+-Words are separated by spaces
+-all ofther letters should be lowercase
+
+Algorithm:
+- initialize a new string variable
+- initialize a new array variable that is the string
+split into words at each space
+- iterate ofer the array
+  - split off the first letter, capitalize it, and join it back together
+  - push it to the new string
+- return the new string
+*/
+
+function wordCap(sentence) {
+  let newSentence = '';
+  let sentenceArray = sentence.split(' ');
+  for (let idx = 0; idx < sentenceArray.length; idx++) {
+    let currentWord = sentenceArray[idx];
+    let capitalizedWord = currentWord.substring(0, 1).toUpperCase() + currentWord.substring(1) + ' ';
+    newSentence = newSentence.concat(capitalizedWord);
+  }
+  return newSentence;
+}
+
+console.log(wordCap('four score and seven'));
 
 //swap case ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+Problem:
+Input: string
+Output: string
 
+- if capital, return lowercase
+- if lowercase, return capital
+
+Algorithm:
+- split word into an array
+- initialize a new array
+- iterate through the array
+  - if capitalized letter === letter
+    - push lowercase letter
+  - elseif lowercase letter === letter
+    - push upper case letter
+- return joined array
+*/
+
+function swapCase(string) {
+  let wordArray = string.split('');
+  let newSentence = [];
+  wordArray.map(letter => {
+    if (letter === letter.toUpperCase()) {
+      newSentence.push(letter.toLowerCase());
+    } else if (letter === letter.toLowerCase()) {
+      newSentence.push(letter.toUpperCase());
+    } else {
+      newSentence.push(letter);
+    }
+  });
+  return newSentence.join('');
+}
+
+console.log(swapCase('CamelCase'));
 
 //staggered caps 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
