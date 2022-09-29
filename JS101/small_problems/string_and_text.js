@@ -156,7 +156,7 @@ Algorithm:
 function swapCase(string) {
   let wordArray = string.split('');
   let newSentence = [];
-  wordArray.map(letter => {
+  wordArray.forEach(letter => {
     if (letter === letter.toUpperCase()) {
       newSentence.push(letter.toLowerCase());
     } else if (letter === letter.toLowerCase()) {
