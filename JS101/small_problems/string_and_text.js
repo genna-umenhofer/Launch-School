@@ -171,10 +171,68 @@ function swapCase(string) {
 console.log(swapCase('CamelCase'));
 
 //staggered caps 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+Problem:
+Input: String
+Output: String
 
+- input will be a mix of upper and lowercase
+- output will be alternating case
+- non-alphabetic characters should stay the same, but count for when to
+switch case
+
+Algorithm:
+- make all the letters lower case
+- make every other letter uppercase
+
+- make a new array
+- make the string lowercase
+- make the string an array
+- iterate over the array
+- if odd push to new array
+- if even make uppercase before pushing to new array
+- return the new array
+*/
+
+function staggeredCase(string) {
+  let newArray = [];
+  let stringArray = string.toLowerCase().split('');
+  for (let idx = 0; idx < stringArray.length; idx++) {
+    if (idx % 2 === 0) {
+      newArray.push(stringArray[idx].toUpperCase());
+    } else if (idx % 2 !== 0) {
+      newArray.push(stringArray[idx]);
+    }
+  }
+  return newArray.join('');
+}
+
+console.log(staggeredCase('I Love Launch School!'));
 
 //staggered caps 2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function staggeredCase2(string) {
+  let newArray = [];
+  let stringArray = string.toLowerCase().split('');
+  let needUpper = true;
 
+  for (let idx = 0; idx < stringArray.length; idx++) {
+    if (stringArray[idx] >= 'a' && stringArray[idx] <= 'z') {
+      if (needUpper) {
+        needUpper = false;
+        newArray.push(stringArray[idx].toUpperCase());
+      } else {
+        needUpper = true;
+        newArray.push(stringArray[idx]);
+      }
+    } else {
+      newArray.push(stringArray[idx]);
+    }
+
+  }
+  return newArray.join('');
+}
+
+console.log(staggeredCase2('I Love Launch School!'));
 
 //how long are you? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
