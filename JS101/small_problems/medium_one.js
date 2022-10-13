@@ -186,10 +186,71 @@ function swapForNumber(word) {
 console.log(wordToDigit('The weight is done.'));
 
 //fib nums recursion ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+Problem:
+Input: number (n)
+Output: number (fibNum)
 
+- the output is the Fibonacci number at the input number's place, basically you do the fibonacci sequence n times and return that end number
+
+Examples:
+fibonacci(1);       // 1
+fibonacci(2);       // 1
+fibonacci(3);       // 2
+fibonacci(4);       // 3
+fibonacci(5);       // 5
+fibonacci(12);      // 144
+fibonacci(20);      // 6765
+
+Algorithm:
+- we want to run the fibonacci sequence n times and return the result
+- the fibonacci sequence starts at 0 + 1, then 1 + 1, then 1 + 2 = 3
+- anything less than or equal to 2 should return 1 because that's the first and second fib number. An N of 1 = 1 and an N of 2 = 1
+- everything else should take the value of the number and the one before it, so n - 2 and n - 1
+
+*/
+
+
+function fibonacci(num) {
+  if (num <= 2) {
+    return 1;
+  } else {
+    return fibonacci(num - 2) + fibonacci(num - 1);
+  }
+}
+
+console.log(fibonacci(12));
 
 //fib nums procedural ~~~~~~~~~~~~~~~~~~~~~~~~~
+function fib(num) {
+  let counter = num;
+  let currentNum = 1;
+  let prevNum = 0;
 
+  while (counter > 1) {
+    let newCurrent = currentNum + prevNum;
+    prevNum = currentNum;
+    currentNum = newCurrent;
+    counter--;
+  }
+
+  return currentNum;
+}
+
+console.log(fib(11));
 
 //fib numbs memoization ~~~~~~~~~~~~~~~~~~~~~~~
+let fibValues = {};
 
+function memoFib(num) {
+  if (num <= 2) {
+    return 1;
+  } else if (fibValues[num]) {
+    return fibValues[num];
+  } else {
+    fibValues[num] = memoFib(num - 1) + memoFib(num - 2);
+    return fibValues[num];
+  }
+}
+
+console.log(memoFib(20));
