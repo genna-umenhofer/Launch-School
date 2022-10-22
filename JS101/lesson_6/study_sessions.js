@@ -119,3 +119,80 @@ appendMessage('dance!'); //takes string 'dance!'
     (I will make one statement for every explicit requirement)
     (I will make one statement for every implicit requirement)
 */
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+//STUDY SESSION 10/22/22 JS 109 Written
+
+// What are the differences between a function delcration, a function expression and an arrow function? You can use examples as part of your answer. 
+
+// A function declaration is when you create a functino using the function keyword
+function sayHello(greeting) {
+  console.log(greeting);
+}
+
+// A function expression is when you declare a function, but the first word is not the function keyword. For example, saving a function as the assignment to a variable.
+let sayHello2 = function() {
+  console.log('Hello');
+}
+
+(function sayHello() {
+  console.log("hello");
+});
+
+//An arrow function is a way to write a function that uses "fat arrow notation" and can be used to create anonymous functions, or functions within a method.
+let names = ['3', '4'];
+names.map(function (elem) { sayHello(elem) });
+
+// This will only happen for a limited number of JavaScript's constructors.
+// JavaScript is instantiating a new Number from the constructor and the array element. 
+names.map(Number);
+
+// Arrow functions are function expressions that are always anonymous. They are created with the "fat arrow notation" and can be used like any other function object. 
+
+let newFunc = (arrIn, strIn) => {
+  console.log(arrIn);
+  console.log(strIn);
+}
+
+// Whenever we need a callback for one of the object or array methods; we can use any function object. We can use any of the function definition options when creating a callback, not just an arrow function. 
+
+// --------------------------------------------
+//  Write out an explanation that covers the differences between a first-class function and a higher-order function. 
+
+/*
+A higher-order function is a function which can be passed another function. A first-class function is a function that can be assigned to a variable, passed to another function, or returned from a function.
+*/
+
+// A first-class function is a function that can be used anywhere JavaScript expects a value. All functions in JavaScript are firt-class vlaues. 
+// A higher-order function is a function that does one or more of: 
+//  - Take another function as an argument. 
+//  - Return another function explicitly. 
+
+
+// ------------------------------------------
+// Write a definition for what a side-effect is and give me two examples of one. 
+
+
+// A side effect is when a function has an unintended consequence, such as a return value, or logging something to the console, in addition to the intendend effect of the function. For example, the .forEach() method always returns 'undefined' but this is usually not the intended outcome of using this method. Typically this method is used to iterate over an array to execute a code block for each item in the array. Usually that execution does not intend to use the return vaule of "undefined. " That makes the return value a side effect. A second example is logging a value to the console before returning an intended value from a function. 
+
+// The terminology they like to use regarding side effects is as a description of a behavior that a function invocation exhibits. 
+// Reassigns a non-local variable.
+// Mutates the value of any object referenced by a non-local variable. 
+// Reads from/writes to a file, network connection, browser or the system hardware. 
+// Raises an exception without handling it. 
+// Calls another function that has side effects (exhibits side effects).
+
+
+// -------------------------------------------
+// Write out a description of what this code will do and why.  
+let num = 3;
+
+if (num = 0) {
+  console.log(num);
+}
+
+// This code will output the number `3` to the console
+
+// We first declare the variable `num`  and initialize it to `0` on `line 1`. 
+// We then evaluate an `if statement` whose conditional checks the result of a reassignment (of `num` to the value `3`). Reassignments are expressions, and so JavaScript will evaluate this expression before making the check. Because reassignments evaluate to the new value, this `num = 3` expression will evaluate to `3` - which is a truthy value. Therefore the conditional expression will evaluate to true and `line 4` will log `3`. 
