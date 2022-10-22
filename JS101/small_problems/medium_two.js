@@ -80,7 +80,71 @@ function calculatePercentage (part, string) {
 console.log(letterPercentages('123'));
 
 //triangle sides ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+Problem
+Input: three numbers
+Output: string
 
+- the output will by the type of triangle (equilateral, isosceles, scalene, or invalid)
+- and invalid triangle is one that is not one of the types of triangles above
+- every side must be greater than 0
+
+Examples
+triangle(3, 3, 3);        // "equilateral"
+triangle(3, 3, 1.5);      // "isosceles"
+triangle(3, 4, 5);        // "scalene"
+triangle(0, 3, 3);        // "invalid"
+triangle(3, 1, 1);        // "invalid"
+
+Data:
+number => if statement => string
+
+Algorithm:
+- save the numbers into variables aSide, bSide, and cSide
+- validate the trainge (helper function)
+- if statement that checks for equilateral (helper function)
+  - return string "equilateral"
+- if statement that checks for iso (helper function)
+  - return string "iso"
+- if statement that checks for scalene (helper function)
+  - return string "scalene"
+*/
+
+function triangle(aSide, bSide, cSide) {
+  if (validateTriangle(aSide, bSide, cSide)) {
+    if (isEquilateral(aSide, bSide, cSide)) return "equilateral";
+    if (isIsosceles(aSide, bSide, cSide)) return "isosceles";
+    if (isScalene(aSide, bSide, cSide)) return "scalene";
+    else return "invalid";
+  } else {
+    return "invalid";
+  }
+}
+
+function validateTriangle(aSide, bSide, cSide) {
+  let perimeter = aSide + bSide + cSide;
+  let longest = Math.max(aSide, bSide, cSide);
+  let shortest = Math.min(aSide, bSide, cSide);
+  let middle = perimeter - longest - shortest;
+
+  return shortest > 0 && shortest + middle > longest;
+}
+
+function isEquilateral(aSide, bSide, cSide) {
+  return (aSide === bSide && bSide === cSide);
+}
+
+function isIsosceles(aSide, bSide, cSide) {
+  return (((aSide === bSide) && (aSide !== cSide)) ||
+          ((bSide === cSide) && (bSide !== aSide)) ||
+          ((cSide === aSide) && (cSide !== bSide)));
+}
+
+function isScalene(aSide, bSide, cSide) {
+  return (aSide !== bSide && bSide !== cSide);
+}
+
+console.log(triangle(3, 4, 5));
 
 //Tri-angles ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
