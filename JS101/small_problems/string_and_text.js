@@ -235,7 +235,55 @@ function staggeredCase2(string) {
 console.log(staggeredCase2('I Love Launch School!'));
 
 //how long are you? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* Problem
+input: string
+output: array
 
+- array is all of the words separated into elements
+- each word has the length of the word and a space concatenated
+- punctionation counts as part of the word that preceeds it
+
+- assume words are separated by spaces
+
+Examples:
+wordLengths('cow sheep chicken');
+// ["cow 3", "sheep 5", "chicken 7"]
+
+wordLengths('baseball hot dogs and apple pie');
+// ["baseball 8", "hot 3", "dogs 4", "and 3", "apple 5", "pie 3"]
+
+wordLengths("It ain't easy, is it?");
+// ["It 2", "ain't 5", "easy, 5", "is 2", "it? 3"]
+
+wordLengths('Supercalifragilisticexpialidocious');
+// ["Supercalifragilisticexpialidocious 34"]
+
+wordLengths('');      // []
+wordLengths();        // []
+
+Data:
+string => array of words => iterate over array => transform elements => return array
+
+Algorithm:
+- guard clause to check that length of string is not 0
+  - if it is, return []
+- save a new array equal to
+  - save the input string as an array of words
+  - iterate over the array of words
+    - return the concatenation of the word and letter count with a space            between to the new array
+- return the new transformed array of words
+
+*/
+
+function wordLengths(string) {
+  if (string.length === 0) return [];
+  let resultArray = string.split(' ').map(word => {
+    return word + ' ' + word.length;
+  })
+  return resultArray;
+}
+
+console.log(wordLengths(''));
 
 //search word 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
