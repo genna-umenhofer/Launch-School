@@ -286,8 +286,34 @@ function wordLengths(string) {
 console.log(wordLengths(''));
 
 //search word 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*Algorithm
+- break the text into an array
+- count initialized to 0
+- iterate over the array 
+  - if word is exactly equal to the array[idx]
+    - count++
+- return count
+*/
 
+function searchWord(word, text) {
+  let textArray = text.toLowerCase().split(' ');
+  let count = 0;
+  textArray.forEach(item => {
+    if (item === word) {
+      count++;
+    }
+  });
+  return count;
+}
 
 //search word 2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+function searchWord2(word, text) {
+  let textArray = text.toLowerCase().split(' ');
+  textArray.forEach((item, index) => {
+    if (item === word) {
+      textArray[index] = '**' + word.toUpperCase() + '**';
+    }
+  });
+  return textArray.join(' ');
+}
 
